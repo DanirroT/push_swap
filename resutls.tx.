@@ -1,0 +1,141 @@
+add s if (stack sorted), end
+
+sort with reverse (reverse, save, swap reverse swap (exemple 2))
+
+
+Push to side  no ss
+
+Input 1: 2
+Input 2: 3
+Input 3: 21
+Input 4: 5
+Input 5: 1
+
+Sorted 1: 1
+Sorted 2: 2
+Sorted 3: 3
+Sorted 4: 5
+Sorted 5: 21
+
+sorting start
+
+Algorithm 0 - Push to Side
+Attempt sort
+         a to b
+        post_a.a 1: 21
+
+        post_a.b 1: 1
+        post_a.b 2: 2
+        post_a.b 3: 5
+        post_a.b 4: 3
+
+         b to a
+        post_b.a 1: 1
+        post_b.a 2: 2
+        post_b.a 3: 3
+        post_b.a 4: 5
+        post_b.a 5: 21
+
+
+Sorting End: 17
+Printing Algorithm: 1 - Push to Side
+Attempt sort
+         a to b
+pa
+pa
+sb
+sa
+pa
+sb
+sa
+pa
+        post_a.a 1: 21
+
+        post_a.b 1: 1
+        post_a.b 2: 2
+        post_a.b 3: 5
+        post_a.b 4: 3
+
+         b to a
+sb
+pb
+sb
+pb
+sa
+sb
+pb
+sa
+pb
+        post_b.a 1: 1
+        post_b.a 2: 2
+        post_b.a 3: 3
+        post_b.a 4: 5
+        post_b.a 5: 21
+
+
+Push to side with ss
+
+Input 1: 2
+Input 2: 3
+Input 3: 21
+Input 4: 5
+Input 5: 1
+
+Sorted 1: 1
+Sorted 2: 2
+Sorted 3: 3
+Sorted 4: 5
+Sorted 5: 21
+
+sorting start
+
+Algorithm 0 - Push to Side
+Attempt sort
+         a to b
+        post_a.a 1: 21
+
+        post_a.b 1: 1
+        post_a.b 2: 2
+        post_a.b 3: 5
+        post_a.b 4: 3
+
+         b to a
+        post_b.a 1: 1
+        post_b.a 2: 2
+        post_b.a 3: 3
+        post_b.a 4: 5
+        post_b.a 5: 21
+
+
+Sorting End: 15
+Printing Algorithm: 1 - Push to Side
+Attempt sort
+         a to b
+pa
+pa
+ss
+pa
+ss
+pa
+        post_a.a 1: 21
+
+        post_a.b 1: 1
+        post_a.b 2: 2
+        post_a.b 3: 5
+        post_a.b 4: 3
+
+         b to a
+sb
+pb
+sb
+pb
+sa
+sb
+pb
+sa
+pb
+        post_b.a 1: 1
+        post_b.a 2: 2
+        post_b.a 3: 3
+        post_b.a 4: 5
+        post_b.a 5: 21
