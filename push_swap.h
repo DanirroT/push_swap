@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/20 14:20:30 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:12:27 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ typedef struct s_sizes
 	int	b;
 }		t_sizes;
 
-typedef struct s_order
-{
-	int	*input;
-	int	*output;
-}		t_order;
+
 
 // utils
 int	ft_isatoi(const char *str);
+int	check_sort(int *stack, int size, int order);
+int	src_super(int *stack, int size, int superlative);
+
+void	print_int_mtx(char *msg, int *mtx, int len);
 
 // Operations
 int	do_pass_a(t_stack stack, t_sizes *size, char print);
@@ -51,12 +51,15 @@ int	do_rotate_r(t_stack stack, t_sizes stack_sizes, char print);
 int	do_revrotate(int *stack, int stack_size, char print);
 int	do_revrotate_r(t_stack stack, t_sizes stack_sizes, char print);
 
-// Sorters
-int	push_to_side(t_stack stack, t_sizes stack_sizes,
-		int *output_order, int print);
-
 // Push to side
 int	do_p_small(t_stack stack, t_sizes *sizes, char print);
 int	do_p_big(t_stack stack, t_sizes *sizes, char print);
-int	push_to_side(t_stack stack, t_sizes stack_sizes, int *sorted, int print);
+int	push_to_side(t_stack stack, t_sizes stack_sizes, int print);
+
+// Rotate to side
+int	do_r_to_small(t_stack stack, t_sizes *sizes, char print);
+int	do_rp_small(t_stack stack, t_sizes *sizes, char print);
+int	do_empty_b(t_stack stack, t_sizes *sizes, char print);
+int	rotate_to_side(t_stack stack, t_sizes stack_sizes, int print);
+
 #endif

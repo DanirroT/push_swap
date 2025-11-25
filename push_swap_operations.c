@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 12:52:35 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/19 15:33:41 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:19:54 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ int	do_pass_a(t_stack stack, t_sizes *size, char print)
 		stack.b[i] = stack.b[i - 1];
 		i--;
 	}
-	stack.b[0] = stack.b[0];
-	while (i < size->b - 1)
+	stack.b[0] = stack.a[0];
+	while (i < size->a - 1)
 	{
-		stack.b[i] = stack.b[i + 1];
+		stack.a[i] = stack.a[i + 1];
 		i++;
 	}
-	stack.b[size->b - 1] = 0;
-	size->a++;
-	size->b--;
+	stack.a[size->a - 1] = 0;
+	size->b++;
+	size->a--;
 	if (print)
-		ft_printf("rr%c\n", print);
+		ft_putstr_fd("pb\n", 1);
 	return (1);
 }
 
@@ -46,17 +46,17 @@ int	do_pass_b(t_stack stack, t_sizes *size, char print)
 		stack.a[i] = stack.a[i - 1];
 		i--;
 	}
-	stack.a[0] = stack.a[0];
-	while (i < size->a - 1)
+	stack.a[0] = stack.b[0];
+	while (i < size->b - 1)
 	{
-		stack.a[i] = stack.a[i + 1];
+		stack.b[i] = stack.b[i + 1];
 		i++;
 	}
-	stack.a[size->a - 1] = 0;
-	size->b++;
-	size->a--;
+	stack.b[size->b - 1] = 0;
+	size->a++;
+	size->b--;
 	if (print)
-		ft_printf("rr%c\n", print);
+		ft_putstr_fd("pa\n", 1);
 	return (1);
 }
 
@@ -68,7 +68,7 @@ int	do_swap(int *stack, char print)
 	stack[0] = stack[1];
 	stack[1] = temp;
 	if (print)
-		ft_printf("rr%c\n", print);
+		ft_printf("s%c\n", print);
 	return (1);
 }
 
@@ -86,7 +86,7 @@ int	do_rotate(int *stack, int stack_size, char print)
 	}
 	stack[stack_size - 1] = temp;
 	if (print)
-		ft_printf("rr%c\n", print);
+		ft_printf("r%c\n", print);
 	return (1);
 }
 

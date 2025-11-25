@@ -6,13 +6,13 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/20 14:40:22 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:45:22 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_out(t_stack *stack, t_order *order, int code)
+int	ft_out(t_stack *stack, int *input, int code)
 {
 	if (stack)
 	{
@@ -21,13 +21,8 @@ int	ft_out(t_stack *stack, t_order *order, int code)
 		if (stack->b)
 			free(stack->b);
 	}
-	if (order)
-	{
-		if (order->input)
-			free(order->input);
-		if (order->output)
-			free(order->output);
-	}
+	if (input)
+		free(input);
 	if (code)
 	{
 		ft_putstr_fd("Error\n", 2);
@@ -95,16 +90,15 @@ void	print_int_mtx(char *msg, int *mtx, int len)
 //	stack_a[5] = ft_strdup("1");
 //}
 
-void	do_sorting(t_stack	stack, t_sizes stack_sizes, t_order order)
+void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 {
 	int	best_act;
 	int	actions;
 	int	i;
 	int	alg_index;
-	int	(*algorithms[])(t_stack, t_sizes, int *, int) = {push_to_side, NULL};
+	int	(*algorithms[])(t_stack, t_sizes, int) = {rotate_to_side, NULL};
 
-	if (stack_sizes.a == 1
-		|| !ft_memcmp(order.input, order.output, stack_sizes.a * sizeof(int)))
+	if (stack_sizes.a == 1 || check_sort(input, stack_sizes.a, 1))
 	{
 		printf("no sorting needed\n");
 		return ;
@@ -115,10 +109,10 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, t_order order)
 	printf("sorting start\n");
 	while (algorithms[i])
 	{
-		ft_memcpy(stack.a, order.input, sizeof(int) * stack_sizes.a);
+		ft_memcpy(stack.a, input, sizeof(int) * stack_sizes.a);
 		ft_bzero(stack.b, sizeof(int) * stack_sizes.b);
 		printf("\nAlgorithm %i - ", i);
-		actions = (algorithms[i])(stack, stack_sizes, order.output, 0);
+		actions = (algorithms[i])(stack, stack_sizes, 0);
 		if (actions < best_act || !best_act)
 		{
 			alg_index = i;
@@ -127,69 +121,75 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, t_order order)
 		printf("Sorting End: %i\n", actions);
 		i++;
 	}
-	ft_memcpy(stack.a, order.input, sizeof(int) * stack_sizes.a);
+	ft_memcpy(stack.a, input, sizeof(int) * stack_sizes.a);
 	ft_bzero(stack.b, sizeof(int) * stack_sizes.b);
 	printf("Printing Algorithm: %i - ", i);
-	(algorithms[alg_index])(stack, stack_sizes, order.output, 1);
+	(algorithms[alg_index])(stack, stack_sizes, 1);
 }
 
 /*int	main(int argc, const char *argv[])
 {
-	t_sizes	stack_sizes;
-	t_stack	stack;
-	int		*output_order;
-	int		i;
+	t_sizes		stack_sizes;
+	t_stack		stack;
+	int			*input;
+	int			*sorted;
+	int			i;
 
 	if (argc <= 1)
 		return (ft_out(NULL, NULL, -1));
 	stack_sizes.a = argc - 1;
 	stack_sizes.b = 0;
+	input = ft_calloc(sizeof(int), stack_sizes.a);
 	stack.a = ft_calloc(sizeof(int), stack_sizes.a);
 	stack.b = ft_calloc(sizeof(int), stack_sizes.a);
-	if (!stack.b || !stack.a)
-		ft_out(&stack, &order, -1);
-	i = 0;
+	if (!stack.b || !stack.a || !input)
+		ft_out(&stack, input, -1);
+	i = 1;
 	while (argv[i])
 	{
-		stack.a[i - 1] = ft_atoi(argv[i]);
+		if (!ft_isatoi(argv[i]))
+			ft_out(&stack, input, -1);
+		input[i - 1] = ft_atoi(argv[i]);
 		i++;
 	}
-	print_int_mtx("Input", stack.a, stack_sizes.a);
-	output_order = get_sort_order(stack.a, stack_sizes.a);
-	print_int_mtx("Sorted", output_order, stack_sizes.a);
-	do_sorting(stack, stack_sizes, output_order);
-	ft_out(&stack, &order, 0);
+	print_int_mtx("Input", input, stack_sizes.a);
+	sorted = get_sort_order(input, stack_sizes.a);
+	print_int_mtx("Sorted", sorted, stack_sizes.a);
+	free(sorted);
+	do_sorting(stack, stack_sizes, input);
+	ft_out(&stack, input, 0);
 }*/
 
 int	main(void)
 {
 	t_sizes		stack_sizes;
 	t_stack		stack;
-	t_order		order;
+	int			*input;
+	int			*sorted;
 	int			i;
 	int			argc = 6;
-	const char	*argv[] = {"./a.out", "2", "3", "21", "5", "1"};
+	const char	*argv[] = {"./a.out", "2", "1", "2", "5", "7"};
 
 	stack_sizes.a = argc - 1;
 	stack_sizes.b = 0;
-	order.input = ft_calloc(sizeof(int), stack_sizes.a);
+	input = ft_calloc(sizeof(int), stack_sizes.a);
 	stack.a = ft_calloc(sizeof(int), stack_sizes.a);
 	stack.b = ft_calloc(sizeof(int), stack_sizes.a);
-	if (!stack.b || !stack.a || !order.input)
-		ft_out(&stack, &order, -1);
+	if (!stack.b || !stack.a || !input)
+		ft_out(&stack, input, -1);
 	i = 1;
 	while (argv[i])
 	{
 		if (!ft_isatoi(argv[i]))
-			ft_out(&stack, &order, -1);
-		order.input[i - 1] = ft_atoi(argv[i]);
+			ft_out(&stack, input, -1);
+		input[i - 1] = ft_atoi(argv[i]);
 		i++;
 	}
-	print_int_mtx("Input", order.input, stack_sizes.a);
-	order.output = get_sort_order(order.input, stack_sizes.a);
-	print_int_mtx("Sorted", order.output, stack_sizes.a);
-	do_sorting(stack, stack_sizes, order);
-	ft_out(&stack, &order, 0);
+	print_int_mtx("Input", input, stack_sizes.a);
+	sorted = get_sort_order(input, stack_sizes.a);
+	print_int_mtx("Sorted", sorted, stack_sizes.a);
+	do_sorting(stack, stack_sizes, input);
+	ft_out(&stack, input, 0);
 }
 
 	//printf("pre swap\n");
@@ -238,61 +238,75 @@ rr	- rotate all stack front to back (down) - a b r(both) 9 10 11
 
 */
 
-int	do_p_small(t_stack stack, t_sizes *sizes, char print)
+int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
+	int	low_loc;
 
-	printf("\t a to b\n");
 	actions = 0;
-	if (sizes->a > 1 && stack.a[0] > stack.a[1])
-			actions += do_swap(stack.a, print * 'a');
-	while (sizes->a > 1)
+	low_loc = src_super(stack.a, sizes->a, -1);
+	while (low_loc)
 	{
-		actions += do_pass_a(stack, sizes, print);
-		if ((sizes->b > 1 && stack.b[0] > stack.b[1])
-			&& (sizes->a > 1 && stack.a[0] > stack.a[1]))
-			actions += do_swap_s(stack, print);
+		if (low_loc % sizes->a / 2)
+		{
+			actions = do_revrotate(stack.a, sizes->a, print * 'a');
+			low_loc++;
+			if (low_loc == sizes->a)
+				low_loc = 0;
+		}
 		else
 		{
-			if (sizes->b > 1 && stack.b[0] > stack.b[1])
-				actions += do_swap(stack.b, print * 'b');
-			if (sizes->a > 1 && stack.a[0] > stack.a[1])
-				actions += do_swap(stack.a, print * 'a');
+			actions = do_rotate(stack.a, sizes->a, print * 'a');
+			low_loc--;
 		}
 	}
 	return (actions);
 }
 
-int	do_p_big(t_stack stack, t_sizes *sizes, char print)
+int	do_rp_small(t_stack stack, t_sizes *sizes, char print)
+{
+	int	actions;
+	
+	printf("\t a to b\n");
+	actions = 0;
+	do_r_to_small(stack, sizes, print);
+	printf("\t\tpree loop\n");
+	print_int_mtx("\t\tpost_loop", stack.a, sizes->a);
+	while (!check_sort(stack.a, sizes->a, 1))
+	{
+		actions += do_pass_a(stack, sizes, print);
+		if (check_sort(stack.a, sizes->a, 1))
+			break ;
+		do_r_to_small(stack, sizes, print);
+		print_int_mtx("\t\tpost_loop", stack.a, sizes->a);
+	}
+	return (actions);
+}
+
+int	do_empty_b(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
 
 	printf("\t b to a\n");
 	actions = 0;
 	while (sizes->b > 0)
-	{
-		if (sizes->b > 1 && stack.b[0] < stack.b[1])
-			actions += do_swap(stack.b, print * 'b');
 		actions += do_pass_b(stack, sizes, print);
-		if (sizes->a > 1 && stack.a[0] > stack.a[1])
-			actions += do_swap(stack.a, print * 'a');
-	}
 	return (actions);
 }
 
-int	push_to_side(t_stack stack, t_sizes stack_sizes, int *sorted, int print)
+int	rotate_to_side(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
 
 	printf("Push to Side\n");
 	actions = 0;
-	while (ft_memcmp(stack.a, sorted, stack_sizes.a * sizeof(int)))
+	while (!check_sort(stack.a, stack_sizes.a, 1))
 	{
 		printf("Attempt sort\n");
-		actions += do_p_small(stack, &stack_sizes, print);
+		actions += do_rp_small(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
-		actions += do_p_big(stack, &stack_sizes, print);
+		actions += do_empty_b(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_b.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_b.b", stack.b, stack_sizes.b);
 	}
@@ -552,6 +566,23 @@ size_t	ft_putstr_null_fd(void *s, int fd)
 	return (i);
 }
 
+size_t	ft_putstr_fd(void *s, int fd)
+{
+	int		i;
+	char	*str;
+
+	if (!s)
+		return (-1);
+	i = 0;
+	str = (char *)s;
+	while (str[i])
+	{
+		write(fd, &str[i], 1);
+		i++;
+	}
+	return (i);
+}
+
 size_t	ft_putchar_fd(char c, int fd)
 {
 	return (write(fd, &c, 1));
@@ -610,23 +641,6 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-size_t	ft_putstr_fd(void *s, int fd)
-{
-	int		i;
-	char	*str;
-
-	if (!s)
-		return (-1);
-	i = 0;
-	str = (char *)s;
-	while (str[i])
-	{
-		write(fd, &str[i], 1);
-		i++;
-	}
-	return (i);
-}
-
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	unsigned char	*res;
@@ -650,35 +664,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (res);
 }
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*c1;
-	unsigned char	*c2;
-
-	if (!n)
-		return (0);
-	c1 = (unsigned char *)s1;
-	c2 = (unsigned char *)s2;
-	if (!s1)
-		return (-c2[0]);
-	if (!s2)
-		return (c1[0]);
-	i = 0;
-	if (n > 0)
-	{
-		while (i < n)
-		{
-			if (c1[i] != c2[i])
-			{
-				return (c1[i] - c2[i]);
-			}
-			i++;
-		}
-	}
-	return (0);
-}
-
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t			i;
@@ -698,6 +683,22 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		i++;
 	}
 	return (d1);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*s1;
+
+	if (!s || !n)
+		return ;
+	i = 0;
+	s1 = (unsigned char *)s;
+	while (i < n)
+	{
+		s1[i] = 0;
+		i++;
+	}
 }
 
 int	ft_atoi(const char *nptr)
@@ -727,22 +728,6 @@ int	ft_atoi(const char *nptr)
 	return (neg * num);
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*s1;
-
-	if (!s || !n)
-		return ;
-	i = 0;
-	s1 = (unsigned char *)s;
-	while (i < n)
-	{
-		s1[i] = 0;
-		i++;
-	}
-}
-
 int	ft_isatoi(const char *str)
 {
 	int				i;
@@ -753,10 +738,44 @@ int	ft_isatoi(const char *str)
 	while (str[i])
 	{
 		if (!(str[i] == '+' || str[i] == '-' || str[i] >= ' '
-			|| (str[i] >= 9 && str[i] <= 13)
-			|| (str[i] >= '0' && str[i] <= '9')))
+				|| (str[i] >= 9 && str[i] <= 13)
+				|| (str[i] >= '0' && str[i] <= '9')))
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+int	check_sort(int *stack, int size, int order)
+{
+	int	i;
+
+	i = 0;
+	while (i < size -1)
+	{
+		if (stack[i] > stack[i + 1] && order == 1)
+			return (0);
+		if (stack[i] < stack[i + 1] && order == -1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	src_super(int *stack, int size, int superlative)
+{
+	int	i;
+	int	loc;
+
+	loc = 0;
+	i = 0;
+	while (i < size -1)
+	{
+		if (stack[loc] < stack[i] && superlative == 1)
+			loc = i;
+		if (stack[loc] > stack[i] && superlative == -1)
+			loc = i;
+		i++;
+	}
+	return (loc);
 }

@@ -6,7 +6,7 @@
 #    By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/17 12:24:40 by dmota-ri          #+#    #+#              #
-#    Updated: 2025/11/19 14:13:50 by dmota-ri         ###   ########.fr        #
+#    Updated: 2025/11/25 18:15:17 by dmota-ri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,17 +40,17 @@ AR = ar rcs
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
-	ranlib $(NAME) 
+	@$(AR) $(NAME) $(OBJ)
+	@ranlib $(NAME) 
 
 %.o: %.c $(LIB)
-	$(CC) -c $< -o $@
+	@$(CC) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ) $(B_OBJ)
+	@$(RM) $(OBJ) $(B_OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 
