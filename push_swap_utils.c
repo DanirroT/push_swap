@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:24:35 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/25 17:59:19 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:27:24 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	src_super(int *stack, int size, int superlative)
 
 	loc = 0;
 	i = 0;
-	while (i < size -1)
+	while (i < size)
 	{
-		if (stack[loc] > stack[i] && superlative == 1)
+		if (stack[loc] < stack[i] && superlative == 1)
 			loc = i;
-		if (stack[loc] < stack[i] && superlative == -1)
+		if (stack[loc] > stack[i] && superlative == -1)
 			loc = i;
 		i++;
 	}
