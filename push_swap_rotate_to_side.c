@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:49:40 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/27 12:15:13 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:20:48 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 	low_loc = src_super(stack.a, sizes->a, -1);
 	while (low_loc)
 	{
-		if (low_loc % sizes->a / 2)
+		if (low_loc / (sizes->a / 2))
 		{
 			actions += do_revrotate(stack.a, sizes->a, print * 'a');
 			low_loc++;

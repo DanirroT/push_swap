@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/26 12:57:32 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:37:28 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ int		do_revrotate_r(t_stack stack, t_sizes stack_sizes, char print);
 int		do_p_small(t_stack stack, t_sizes *sizes, char print);
 int		do_p_big(t_stack stack, t_sizes *sizes, char print);
 int		push_to_side(t_stack stack, t_sizes stack_sizes, int print);
+
+// Push to side Stop
+int		do_p_small_stop(t_stack stack, t_sizes *sizes, char print);
+int		do_p_big_stop(t_stack stack, t_sizes *sizes, char print);
+int		push_to_side_stop(t_stack stack, t_sizes stack_sizes, int print);
 
 // Rotate to side
 int		do_r_to_small(t_stack stack, t_sizes *sizes, char print);

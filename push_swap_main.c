@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/27 12:32:39 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:20:10 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 	int	i;
 	int	alg_index;
 	int	(*algorithms[])(t_stack, t_sizes, int) = {simple_s_solve,
-		simple_rr_solve, simple_r_solve, push_to_side, rotate_to_side, NULL};
+		simple_rr_solve, simple_r_solve, push_to_side, push_to_side_stop, rotate_to_side, NULL};
 
 	if (stack_sizes.a == 1 || check_sort(input, stack_sizes.a, 1))
 		return ;
@@ -157,8 +157,8 @@ int	main(void)
 	int			*input;
 	int			*sorted;
 	int			i;
-	int			argc = 5;
-	const char	*argv[] = {"./a.out", "3", "2", "1", "0", NULL};
+	int			argc = 7;
+	const char	*argv[] = {"./a.out", "1234", "4321", "2", "6", "9", "3", NULL};
 
 	stack_sizes.a = argc - 1;
 	stack_sizes.b = 0;
@@ -227,6 +227,7 @@ r	- rotate all stack back to front (up) - a b r(both) 6 7 8
 rr	- rotate all stack front to back (down) - a b r(both) 9 10 11
 
 */
+
 
 
 
@@ -314,8 +315,8 @@ int	do_revrotate(int *stack, int stack_size, char print)
 	int	i;
 
 	temp = stack[stack_size - 1];
-	i = stack_size;
-	while (i)
+	i = stack_size - 1;
+	while (i > 0)
 	{
 		stack[i] = stack[i - 1];
 		i--;
@@ -741,10 +742,11 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 
 	actions = 0;
 	low_loc = src_super(stack.a, sizes->a, -1);
-	printf("\t rotating a %d / %d\n", low_loc, sizes->a);
+	printf("\t rotating a %d / %d = %d\n", low_loc, sizes->a, low_loc % (sizes->a / 2));
 	while (low_loc)
 	{
-		if (low_loc % sizes->a / 2)
+		
+		if (low_loc / (sizes->a / 2))
 		{
 			actions += do_revrotate(stack.a, sizes->a, print * 'a');
 			low_loc++;
@@ -756,6 +758,7 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 			actions += do_rotate(stack.a, sizes->a, print * 'a');
 			low_loc--;
 		}
+		printf("\t rotating a %d / %d = %d\n", low_loc, sizes->a, low_loc % (sizes->a / 2));
 	}
 	return (actions);
 }
@@ -794,13 +797,11 @@ int	do_empty_b(t_stack stack, t_sizes *sizes, char print)
 int	rotate_to_side(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
-	int	i = 0;
 
 	printf("Rotate to Side\n");
 	actions = 0;
-	while (!check_sort(stack.a, stack_sizes.a, 1) && i++ < 10)
+	while (!check_sort(stack.a, stack_sizes.a, 1))
 	{
-		printf("Iteration %d\n", i);
 		printf("Attempt sort\n");
 		actions += do_rp_small(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
@@ -817,6 +818,7 @@ int	do_p_small(t_stack stack, t_sizes *sizes, char print)
 	int	actions;
 
 	printf("\t a to b\n");
+	print_int_mtx("\t\tpre_loop", stack.a, sizes->a);
 	actions = 0;
 	if (sizes->a > 1 && stack.a[0] > stack.a[1])
 		actions += do_swap(stack.a, print * 'a');
@@ -825,12 +827,12 @@ int	do_p_small(t_stack stack, t_sizes *sizes, char print)
 		actions += do_pass_a(stack, sizes, print);
 		if (check_sort(stack.a, sizes->a, 1))
 			break ;
-		if ((sizes->b > 1 && stack.b[0] > stack.b[1])
+		if ((sizes->b > 1 && stack.b[0] < stack.b[1])
 			&& (sizes->a > 1 && stack.a[0] > stack.a[1]))
 			actions += do_swap_s(stack, print);
 		else
 		{
-			if (sizes->b > 1 && stack.b[0] > stack.b[1])
+			if (sizes->b > 1 && stack.b[0] < stack.b[1])
 				actions += do_swap(stack.b, print * 'b');
 			if (sizes->a > 1 && stack.a[0] > stack.a[1])
 				actions += do_swap(stack.a, print * 'a');
@@ -843,22 +845,18 @@ int	do_p_small(t_stack stack, t_sizes *sizes, char print)
 int	do_p_big(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
-	int	i = 0;
 
 	printf("\t b to a\n");
 	actions = 0;
-	if (sizes->b > 1 && stack.b[0] < stack.b[1])
-		actions += do_swap(stack.b, print * 'b');
-	while (sizes->b > 0 && i++ < 10)
+	while (sizes->b > 0)
 	{
-		printf("Iteration %d\n", i);
 		actions += do_pass_b(stack, sizes, print);
-		if ((sizes->b > 1 && stack.b[0] > stack.b[1])
+		if ((sizes->b > 1 && stack.b[0] < stack.b[1])
 			&& (sizes->a > 1 && stack.a[0] > stack.a[1]))
 			actions += do_swap_s(stack, print);
 		else
 		{
-			if (sizes->b > 1 && stack.b[0] > stack.b[1])
+			if (sizes->b > 1 && stack.b[0] < stack.b[1])
 				actions += do_swap(stack.b, print * 'b');
 			if (sizes->a > 1 && stack.a[0] > stack.a[1])
 				actions += do_swap(stack.a, print * 'a');
@@ -880,6 +878,72 @@ int	push_to_side(t_stack stack, t_sizes stack_sizes, int print)
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
 		actions += do_p_big(stack, &stack_sizes, print);
+		print_int_mtx("\tpost_b.a", stack.a, stack_sizes.a);
+		print_int_mtx("\tpost_b.b", stack.b, stack_sizes.b);
+	}
+	return (actions);
+}
+
+int	do_p_small_stop(t_stack stack, t_sizes *sizes, char print)
+{
+	int	actions;
+
+	actions = 0;
+	if (sizes->a > 1 && stack.a[0] > stack.a[1])
+		actions += do_swap(stack.a, print * 'a');
+	while (sizes->a > 1)
+	{
+		actions += do_pass_a(stack, sizes, print);
+		if ((sizes->b > 1 && stack.b[0] < stack.b[1])
+			&& (sizes->a > 1 && stack.a[0] > stack.a[1]))
+			actions += do_swap_s(stack, print);
+		else
+		{
+			if (sizes->b > 1 && stack.b[0] < stack.b[1])
+				actions += do_swap(stack.b, print * 'b');
+			if (sizes->a > 1 && stack.a[0] > stack.a[1])
+				actions += do_swap(stack.a, print * 'a');
+		}
+		print_int_mtx("\t\tpost_loop", stack.a, sizes->a);
+	}
+	return (actions);
+}
+
+int	do_p_big_stop(t_stack stack, t_sizes *sizes, char print)
+{
+	int	actions;
+
+	actions = 0;
+	while (sizes->b > 0)
+	{
+		actions += do_pass_b(stack, sizes, print);
+		if ((sizes->b > 1 && stack.b[0] < stack.b[1])
+			&& (sizes->a > 1 && stack.a[0] > stack.a[1]))
+			actions += do_swap_s(stack, print);
+		else
+		{
+			if (sizes->b > 1 && stack.b[0] < stack.b[1])
+				actions += do_swap(stack.b, print * 'b');
+			if (sizes->a > 1 && stack.a[0] > stack.a[1])
+				actions += do_swap(stack.a, print * 'a');
+		}
+	}
+	return (actions);
+}
+
+int	push_to_side_stop(t_stack stack, t_sizes stack_sizes, int print)
+{
+	int	actions;
+
+	printf("Push to Side Stop\n\n");
+	actions = 0;
+	while (!check_sort(stack.a, stack_sizes.a, 1))
+	{
+		printf("Attempt sort\n");
+		actions += do_p_small_stop(stack, &stack_sizes, print);
+		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
+		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
+		actions += do_p_big_stop(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_b.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_b.b", stack.b, stack_sizes.b);
 	}

@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 12:52:35 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/25 15:19:54 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:15:20 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int	do_revrotate(int *stack, int stack_size, char print)
 	int	i;
 
 	temp = stack[stack_size - 1];
-	i = stack_size;
-	while (i)
+	i = stack_size - 1;
+	while (i > 0)
 	{
 		stack[i] = stack[i - 1];
 		i--;
