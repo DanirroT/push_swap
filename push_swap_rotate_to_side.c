@@ -22,9 +22,10 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 	low_loc = src_super(stack.a, sizes->a, -1);
 	while (low_loc)
 	{
-		if (low_loc / (sizes->a / 2))
+		if (low_loc > (sizes->a / 2))
 		{
 			actions += do_revrotate(stack.a, sizes->a, print * 'a');
+			print_stacks("revrotate", stack, *sizes);
 			low_loc++;
 			if (low_loc == sizes->a)
 				low_loc = 0;
@@ -32,6 +33,7 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 		else
 		{
 			actions += do_rotate(stack.a, sizes->a, print * 'a');
+			print_stacks("rotate", stack, *sizes);
 			low_loc--;
 		}
 	}
@@ -47,6 +49,7 @@ int	do_rp_small(t_stack stack, t_sizes *sizes, char print)
 	while (!check_sort(stack.a, sizes->a, 1))
 	{
 		actions += do_pass_a(stack, sizes, print);
+		print_stacks("pass a", stack, *sizes);
 		if (check_sort(stack.a, sizes->a, 1))
 			break ;
 		actions += do_r_to_small(stack, sizes, print);
@@ -60,7 +63,8 @@ int	do_empty_b(t_stack stack, t_sizes *sizes, char print)
 
 	actions = 0;
 	while (sizes->b > 0)
-		actions += do_pass_b(stack, sizes, print);
+	{	actions += do_pass_b(stack, sizes, print);
+		print_stacks("pass b", stack, *sizes);}
 	return (actions);
 }
 

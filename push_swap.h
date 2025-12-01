@@ -69,4 +69,8 @@ int simple_s_solve(t_stack stack, t_sizes sizes, int print);
 int simple_r_solve(t_stack stack, t_sizes sizes, int print);
 int simple_rr_solve(t_stack stack, t_sizes sizes, int print);
 
+void	print_stack(int *mtx, int len);
+
+void	print_stacks(char *msg, t_stack stacks, t_sizes sizes);
+
 #endif

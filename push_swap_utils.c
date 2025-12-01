@@ -52,12 +52,12 @@ int	src_super(int *stack, int size, int superlative)
 	int	loc;
 
 	loc = 0;
-	i = 0;
+	i = 1;
 	while (i < size)
 	{
 		if (stack[loc] < stack[i] && superlative == 1)
 			loc = i;
-		if (stack[loc] > stack[i] && superlative == -1)
+		else if (stack[loc] > stack[i] && superlative == -1)
 			loc = i;
 		i++;
 	}

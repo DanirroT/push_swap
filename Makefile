@@ -27,27 +27,26 @@ OBJ = $(SRC:.c=.o)
 
 #B_OBJ = $(BONUS:.c=.o)
 
-LIBFT_DIR = libft/
-LIBFT = $(LIBFT_DIR)libft.h
-LIBFT_NAME = $(LIBFT_DIR)libft.a
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.h
+LIBFT_NAME = $(LIBFT_DIR)/libft.a
 
-LIB = push_swap.h
+INC = push_swap.h
 
 CFLAGS = -Wall -Wextra -Werror -DNO_MAIN
 CC = cc $(CFLAGS)
 
 RM = rm -f
-AR = ar rcs
 
 all: $(NAME)
 
 $(LIBFT_NAME):
 	make -C $(LIBFT_DIR)
 
-$(NAME): $(LIBFT_NAME) $(OBJ) $(LIB)
+$(NAME): $(LIBFT_NAME) $(OBJ) $(INC)
 	$(CC) -I $(LIBFT_DIR) -I . $(OBJ) $(LIBFT_NAME) -o $(NAME)
 
-%.o: %.c $(LIB)
+%.o: %.c $(INC)
 	$(CC) -I $(LIBFT_DIR) -I . -c $< -o $@
 
 clean:
