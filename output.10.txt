@@ -1,0 +1,98 @@
+Input 1: 125
+Input 2: 281
+Input 3: 20
+Input 4: 48
+Input 5: 511
+Input 6: 310
+Input 7: 348
+Input 8: 367
+Input 9: 210
+Input 10: 279
+
+Sorted 1: 20
+Sorted 2: 48
+Sorted 3: 125
+Sorted 4: 210
+Sorted 5: 279
+Sorted 6: 281
+Sorted 7: 310
+Sorted 8: 348
+Sorted 9: 367
+Sorted 10: 511
+
+
+Algorithm 0	Sorting End: -1
+
+Algorithm 1	Sorting End: -1
+
+Algorithm 2	Sorting End: -1
+
+Algorithm 3	Sorting End: 28
+
+Algorithm 4	Sorting End: 31
+    rotate: a  281   20   48  511  310  348  367  210  279  125		    rotate: b	
+    rotate: a   20   48  511  310  348  367  210  279  125  281		    rotate: b	
+    pass a: a   48  511  310  348  367  210  279  125  281		    pass a: b   20	
+    pass a: a  511  310  348  367  210  279  125  281		    pass a: b   48   20	
+ revrotate: a  281  511  310  348  367  210  279  125		 revrotate: b   48   20	
+ revrotate: a  125  281  511  310  348  367  210  279		 revrotate: b   48   20	
+    pass a: a  281  511  310  348  367  210  279		    pass a: b  125   48   20	
+ revrotate: a  279  281  511  310  348  367  210		 revrotate: b  125   48   20	
+ revrotate: a  210  279  281  511  310  348  367		 revrotate: b  125   48   20	
+    pass a: a  279  281  511  310  348  367		    pass a: b  210  125   48   20	
+    pass a: a  281  511  310  348  367		    pass a: b  279  210  125   48   20	
+    pass a: a  511  310  348  367		    pass a: b  281  279  210  125   48   20	
+    rotate: a  310  348  367  511		    rotate: b  281  279  210  125   48   20	
+    pass b: a  281  310  348  367  511		    pass b: b  279  210  125   48   20	
+    pass b: a  279  281  310  348  367  511		    pass b: b  210  125   48   20	
+    pass b: a  210  279  281  310  348  367  511		    pass b: b  125   48   20	
+    pass b: a  125  210  279  281  310  348  367  511		    pass b: b   48   20	
+    pass b: a   48  125  210  279  281  310  348  367  511		    pass b: b   20	
+    pass b: a   20   48  125  210  279  281  310  348  367  511		    pass b: b	
+
+Algorithm 5	Sorting End: 19
+    pass b: a  511  310  348  367  210  279		    pass b: b   48   20  281  125	
+    pass b: a   48  511  310  348  367  210  279		    pass b: b   20  281  125	
+    pass b: a   20   48  511  310  348  367  210  279		    pass b: b  281  125	
+    pass b: a  281   20   48  511  310  348  367  210  279		    pass b: b  125	
+    pass b: a  125  281   20   48  511  310  348  367  210  279		    pass b: b	
+    pass b: a  511  310  348  367  210  279		    pass b: b   48   20  281  125	
+    pass b: a   48  511  310  348  367  210  279		    pass b: b   20  281  125	
+    pass b: a   20   48  511  310  348  367  210  279		    pass b: b  281  125	
+    pass b: a  281   20   48  511  310  348  367  210  279		    pass b: b  125	
+    pass b: a  125  281   20   48  511  310  348  367  210  279		    pass b: b	
+    pass b: a  511  310  348  367  210  279		    pass b: b   48   20  281  125	
+    pass b: a   48  511  310  348  367  210  279		    pass b: b   20  281  125	
+    pass b: a   20   48  511  310  348  367  210  279		    pass b: b  281  125	
+    pass b: a  281   20   48  511  310  348  367  210  279		    pass b: b  125	
+    pass b: a  125  281   20   48  511  310  348  367  210  279		    pass b: b	
+    pass b: a  511  310  348  367  210  279		    pass b: b   48   20  281  125	
+    pass b: a   48  511  310  348  367  210  279		    pass b: b   20  281  125	
+    pass b: a   20   48  511  310  348  367  210  279		    pass b: b  281  125	
+    pass b: a  281   20   48  511  310  348  367  210  279		    pass b: b  125	
+    pass b: a  125  281   20   48  511  310  348  367  210  279		    pass b: b	
+
+Algorithm 6	Sorting End: 40
+
+
+Printing Algorithm: 5
+
+    rotate: a  281   20   48  511  310  348  367  210  279  125		    rotate: b	
+    rotate: a   20   48  511  310  348  367  210  279  125  281		    rotate: b	
+    pass a: a   48  511  310  348  367  210  279  125  281		    pass a: b   20	
+    pass a: a  511  310  348  367  210  279  125  281		    pass a: b   48   20	
+ revrotate: a  281  511  310  348  367  210  279  125		 revrotate: b   48   20	
+ revrotate: a  125  281  511  310  348  367  210  279		 revrotate: b   48   20	
+    pass a: a  281  511  310  348  367  210  279		    pass a: b  125   48   20	
+ revrotate: a  279  281  511  310  348  367  210		 revrotate: b  125   48   20	
+ revrotate: a  210  279  281  511  310  348  367		 revrotate: b  125   48   20	
+    pass a: a  279  281  511  310  348  367		    pass a: b  210  125   48   20	
+    pass a: a  281  511  310  348  367		    pass a: b  279  210  125   48   20	
+    pass a: a  511  310  348  367		    pass a: b  281  279  210  125   48   20	
+    rotate: a  310  348  367  511		    rotate: b  281  279  210  125   48   20	
+    pass b: a  281  310  348  367  511		    pass b: b  279  210  125   48   20	
+    pass b: a  279  281  310  348  367  511		    pass b: b  210  125   48   20	
+    pass b: a  210  279  281  310  348  367  511		    pass b: b  125   48   20	
+    pass b: a  125  210  279  281  310  348  367  511		    pass b: b   48   20	
+    pass b: a   48  125  210  279  281  310  348  367  511		    pass b: b   20	
+    pass b: a   20   48  125  210  279  281  310  348  367  511		    pass b: b	

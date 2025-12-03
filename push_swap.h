@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/28 12:37:28 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:56:59 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int		do_rotate_r(t_stack stack, t_sizes stack_sizes, char print);
 int		do_revrotate(int *stack, int stack_size, char print);
 int		do_revrotate_r(t_stack stack, t_sizes stack_sizes, char print);
 
+// Simple Solves
+int		simple_s_solve(t_stack stack, t_sizes sizes, int print);
+int		simple_r_solve(t_stack stack, t_sizes sizes, int print);
+int		simple_rr_solve(t_stack stack, t_sizes sizes, int print);
+
 // Push to side
 int		do_p_small(t_stack stack, t_sizes *sizes, char print);
 int		do_p_big(t_stack stack, t_sizes *sizes, char print);
@@ -64,10 +69,10 @@ int		do_rp_small(t_stack stack, t_sizes *sizes, char print);
 int		do_empty_b(t_stack stack, t_sizes *sizes, char print);
 int		rotate_to_side(t_stack stack, t_sizes stack_sizes, int print);
 
-// Simple Solves
-int simple_s_solve(t_stack stack, t_sizes sizes, int print);
-int simple_r_solve(t_stack stack, t_sizes sizes, int print);
-int simple_rr_solve(t_stack stack, t_sizes sizes, int print);
+// radix sort (500)
+int		get_max_bits(int total_size);
+int		*get_ranks(int *stack, int size);
+int		radix_sort(t_stack stack, t_sizes sizes, int print);
 
 void	print_stack(int *mtx, int len);
 

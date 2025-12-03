@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/28 16:20:10 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/02 23:02:49 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,147 +95,40 @@ void	print_int_mtx(char *msg, int *mtx, int len)
 	ft_putchar_fd('\n', 2);
 }
 
+int	chunking_sort(t_stack stack, t_sizes sizes, int print)
+{
+	int	actions;
+	int	*ranks;
+	int	chunk_size;
+	int	chunk_number;
+	t_sizes	iter;
+
+	actions = 0;
+	chunk_size = 10; // ~ sqr(sizes.a)
+	chunk_number = sizes.a / chunk_size + ((sizes.a % chunk_size) != 0);
+	ranks = get_ranks(stack.a, sizes.a);
+	
+	while (iter.a < chunk_number)
+	{
+		iter.b = 0;
+		while (iter.b < sizes.a)
+		{
+			if (ranks[stack.a[0]] - (iter.a * chunk_size) >= 0 || ranks[stack.a[0]] - (iter.a * chunk_size) < chunk_size)
+				actions += do_pass_a(stack, &sizes, print);
+			else
+				actions += do_rotate(stack.a, sizes.a, print * 'a');
+			iter.b++;
+		}
+		actions += do_empty_b(stack, &sizes, print);
+		iter.a++;
+	}
+	return (actions);
+}
+
 //	Algurithms
 // simple_s_solve, simple_rr_solve, simple_r_solve,
 // push_to_side, rotate_to_side, 
-
-// A função do_push_swap é o ponto de entrada principal que chamaria esta função
-// ...
-
-// Assumimos que o array 'ranks' foi calculado e inicializado
-// com os índices de ordenação correspondentes aos valores em stack.a.
-// (Ex: Se stack.a[i] é o menor valor, ranks[i] = 0)
-/**
- * @brief Determina o número de bits necessários para representar o maior índice (N-1).
- *
- * @param total_size O número total de elementos (N) na pilha.
- * @return int O número de bits necessários para o Radix Sort.
- */
-
-int get_max_bits(int total_size)
-{
-    int max_value;
-    int max_bits;
-
-    // 1. O maior índice (rank) que teremos é N-1.
-    // Ex: Se N=500, o maior rank é 499.
-    max_value = total_size - 1; 
-
-    if (max_value < 0)
-        return (0);
-        
-    // 2. Itera para contar quantos bits são necessários.
-    // O loop continua enquanto houver bits "ativos" (1) no max_value.
-    max_bits = 0;
-    while (max_value > 0)
-    {
-        // Desloca o bit do max_value uma posição para a direita.
-        // Isto é equivalente a dividir por 2.
-        max_value = max_value >> 1;
-        
-        // Incrementa o contador de bits.
-        max_bits++;
-    }
-
-    return (max_bits);
-}
-
-int *get_ranks(int *stack, int size)
-{
-    int *ranks;
-    int i;
-    int j;
-    int rank_count;
-
-    // 1. Alocar memória para o array de ranks
-    ranks = (int *)malloc(sizeof(int) * size);
-    if (!ranks)
-        return (NULL); // Falha na alocação
-
-    i = 0;
-    // 2. Iterar sobre cada elemento da pilha original (stack.a[i])
-    while (i < size)
-    {
-        rank_count = 0;
-        j = 0;
-        
-        // 3. Comparar stack.a[i] com todos os outros elementos (stack.a[j])
-        //    para determinar seu rank.
-        while (j < size)
-        {
-            // Se stack.a[j] for menor que stack.a[i],
-            // ele deve ter um rank menor.
-            if (stack[j] < stack[i])
-            {
-                rank_count++;
-            }
-            j++;
-        }
-        
-        // 4. Atribuir o rank (número de elementos menores)
-        // O rank_count será o índice ordenado do elemento.
-        ranks[i] = rank_count;
-        
-        i++;
-    }
-    
-    return (ranks);
-}
-
-int radix_sort(t_stack stack, t_sizes sizes, int print)
-{
-    int actions;
-    int max_bits;
-    int i;
-    int j;
-	int *ranks;
-
-    actions = 0;
-	ranks = get_ranks(stack.a, sizes.a);
-    max_bits = get_max_bits(sizes.a); // N
-    i = 0; // i = índice do bit atual (0, 1, 2, ...)
-
-    // Itera sobre cada bit, do LSB (Bit 0) para o MSB
-    while (i < max_bits)
-    {
-        j = 0; // Contador para iterar por todos os elementos (N)
-        while (j < sizes.a)
-        {
-            // 1. Obtém o RANK do elemento no topo da pilha A
-            // Nota: O valor do topo (stack.a[0]) corresponde ao rank no array 'ranks'
-            // no índice que representa o elemento. Como a pilha é dinâmica,
-            // usaremos get_rank para encontrar a posição do rank.
-            
-            // Supondo que você tem acesso direto ao rank do elemento no topo:
-            int current_rank = ranks[stack.a[0]]; // Esta linha depende da sua estrutura de dados
-
-            // 2. Verifica o bit 'i' do rank
-            if (((current_rank >> i) & 1) == 0) // Bit atual é 0 (Número 'par' para este bit)
-            {
-                // Se o bit for 0, move para a pilha B
-                actions += do_pass_a(stack, &sizes, print); // Implementa 'pb'
-            }
-            else // Bit atual é 1 (Número 'ímpar' para este bit)
-            {
-                // Se o bit for 1, mantém na A e roda para o fundo
-                actions += do_rotate(stack.a, sizes.a, print * 'a'); // Implementa 'ra'
-            }
-            j++;
-        }
-
-        // 3. Move todos os elementos de B de volta para A
-        // A pilha B agora tem todos os números cujo bit 'i' era 0.
-        // O comando do_pass_b deve implementar 'pa'.
-        while (sizes.b > 0)
-        {
-            actions += do_pass_b(stack, &sizes, print); // Implementa 'pa'
-        }
-
-        i++; // Avança para o próximo bit
-    }
-
-    return (actions);
-}
+// , radix_sort
 
 void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 {
@@ -244,12 +137,11 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 	int	i;
 	int	alg_index;
 	int	(*algorithms[])(t_stack, t_sizes, int) = {simple_s_solve,
-		simple_rr_solve, simple_r_solve, push_to_side, push_to_side_stop, rotate_to_side, radix_sort, NULL};
+		simple_rr_solve, simple_r_solve, push_to_side, push_to_side_stop, rotate_to_side, chunking_sort, radix_sort, NULL};
 
 	if (stack_sizes.a == 1 || check_sort(input, stack_sizes.a, 1))
 		return ;
 	best_act = 0;
-	actions = 0;
 	i = 0;
 	while (algorithms[i])
 	{
@@ -261,8 +153,7 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 			alg_index = i;
 			best_act = actions;
 		}
-		fprintf(stderr, "\nAlgorithm %i", i);
-		fprintf(stderr,"\tSorting End: %i\n", actions);
+		fprintf(stderr,"\nAlgorithm %i\tSorting End: %i\n", i, actions);
 		i++;
 		if (best_act == 1)
 			break ;
@@ -309,6 +200,8 @@ int	main(int argc, const char *argv[])
 }
 
 #else
+
+
 
 int	main(void)
 {
@@ -1106,6 +999,77 @@ int	push_to_side_stop(t_stack stack, t_sizes stack_sizes, int print)
 		actions += do_p_big_stop(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_b.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_b.b", stack.b, stack_sizes.b);
+	}
+	return (actions);
+}
+
+int get_max_bits(int total_size)
+{
+	int max_value;
+	int max_bits;
+
+	max_value = total_size - 1; 
+	if (max_value < 0)
+		return (0);
+	max_bits = 0;
+	while (max_value > 0)
+	{
+		max_value = max_value >> 1;
+		max_bits++;
+	}
+	return (max_bits);
+}
+
+int *get_ranks(int *stack, int size)
+{
+	int *ranks;
+	t_sizes iter;
+	int rank_count;
+
+	ranks = (int *)malloc(sizeof(int) * size);
+	if (!ranks)
+		return (NULL);
+	iter.a = 0;
+	while (iter.a < size)
+	{
+		rank_count = 0;
+		iter.b = 0;
+		while (iter.b < size)
+		{
+			if (stack[iter.b] < stack[iter.a])
+				rank_count++;
+			iter.b++;
+		}
+		ranks[iter.a] = rank_count;
+		iter.a++;
+	}
+	return (ranks);
+}
+
+int radix_sort(t_stack stack, t_sizes sizes, int print)
+{
+	int actions;
+	int max_bits;
+	t_sizes iter;
+	int *ranks;
+
+	actions = 0;
+	ranks = get_ranks(stack.a, sizes.a);
+	max_bits = get_max_bits(sizes.a);
+	iter.a = 0;
+	while (iter.a < max_bits)
+	{
+		iter.b = 0;
+		while (iter.b < sizes.a)
+		{
+			if (((ranks[stack.a[0]] >> iter.a) & 1) == 0)
+				actions += do_pass_a(stack, &sizes, print);
+			else
+				actions += do_rotate(stack.a, sizes.a, print * 'a');
+			iter.b++;
+		}
+		actions += do_empty_b(stack, &sizes, print);
+		iter.a++;
 	}
 	return (actions);
 }
