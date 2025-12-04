@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_radix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 17:53:57 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/12/02 22:58:18 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:40:53 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-int get_max_bits(int total_size)
+int	get_max_bits(int total_size)
 {
 	int	max_value;
 	int	max_bits;
 
-	max_value = total_size - 1; 
+	max_value = total_size - 1;
 	if (max_value < 0)
 		return (0);
 	max_bits = 0;
@@ -30,7 +29,7 @@ int get_max_bits(int total_size)
 	return (max_bits);
 }
 
-int *get_ranks(int *stack, int size)
+int	*get_ranks(int *stack, int size)
 {
 	int		*ranks;
 	t_sizes	iter;
@@ -56,7 +55,7 @@ int *get_ranks(int *stack, int size)
 	return (ranks);
 }
 
-int radix_sort(t_stack stack, t_sizes sizes, int print)
+int	radix_sort(t_stack stack, t_sizes sizes, int print)
 {
 	int		actions;
 	int		max_bits;
@@ -81,5 +80,6 @@ int radix_sort(t_stack stack, t_sizes sizes, int print)
 		actions += do_empty_b(stack, &sizes, print);
 		iter.a++;
 	}
+	free(ranks);
 	return (actions);
 }

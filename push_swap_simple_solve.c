@@ -6,13 +6,13 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 12:59:20 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/27 12:08:43 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:47:59 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int simple_s_solve(t_stack stack, t_sizes sizes, int print)
+int	simple_s_solve(t_stack stack, t_sizes sizes, int print)
 {
 	do_swap(stack.a, print * 'a');
 	if (check_sort(stack.a, sizes.a, 1))
@@ -20,7 +20,7 @@ int simple_s_solve(t_stack stack, t_sizes sizes, int print)
 	return (-1);
 }
 
-int simple_r_solve(t_stack stack, t_sizes sizes, int print)
+int	simple_r_solve(t_stack stack, t_sizes sizes, int print)
 {
 	int	actions;
 
@@ -32,7 +32,7 @@ int simple_r_solve(t_stack stack, t_sizes sizes, int print)
 	return (-1);
 }
 
-int simple_rr_solve(t_stack stack, t_sizes sizes, int print)
+int	simple_rr_solve(t_stack stack, t_sizes sizes, int print)
 {
 	int	actions;
 

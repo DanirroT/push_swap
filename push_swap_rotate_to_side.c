@@ -6,12 +6,11 @@
 /*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:49:40 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/11/28 16:20:48 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/03 11:47:25 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 {
@@ -63,15 +62,16 @@ int	do_empty_b(t_stack stack, t_sizes *sizes, char print)
 
 	actions = 0;
 	while (sizes->b > 0)
-	{	actions += do_pass_b(stack, sizes, print);
-		print_stacks("pass b", stack, *sizes);}
+	{
+		actions += do_pass_b(stack, sizes, print);
+		print_stacks("pass b", stack, *sizes);
+	}
 	return (actions);
 }
 
 int	rotate_to_side(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
-	int	i = 0;
 
 	actions = 0;
 	while (!check_sort(stack.a, stack_sizes.a, 1) && i++ < 10)

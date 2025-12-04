@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/12/02 23:02:49 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:16:48 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,6 @@ int	ft_out(t_stack *stack, int *input, int code)
 	return (0);
 }
 
-int	*get_sort_order(int *to_sort, int len)
-{
-	int		j;
-	int		k;
-	int		temp;
-	int		*sorted;
-
-	sorted = ft_calloc(sizeof(int), len);
-	ft_memcpy(sorted, to_sort, sizeof(int) * len);
-	k = 0;
-	while (k < len - 1)
-	{
-		j = k + 1;
-		while (j < len)
-		{
-			if (sorted[k] > sorted[j])
-			{
-				temp = sorted[k];
-				sorted[k] = sorted[j];
-				sorted[j] = temp;
-			}
-			j++;
-		}
-		k++;
-	}
-	return (sorted);
-}
-
 void	print_stack(int *mtx, int len)
 {
 	int	i;
@@ -66,20 +38,19 @@ void	print_stack(int *mtx, int len)
 	i = 0;
 	while (i < len)
 	{
-		fprintf(stderr," %4i", mtx[i]);
+		fprintf(stderr, " %4i", mtx[i]);
 		i++;
 	}
-
 	ft_putchar_fd('\t', 2);
 }
 
 void	print_stacks(char *msg, t_stack stacks, t_sizes sizes)
 {
-	fprintf(stderr,"%10s: a", msg);
+	fprintf(stderr, "%10s: a", msg);
 	print_stack(stacks.a, sizes.a);
-	fprintf(stderr,"\t%10s: b", msg);
+	fprintf(stderr, "\t%10s: b", msg);
 	print_stack(stacks.b, sizes.b);
-	fprintf(stderr,"\n");
+	fprintf(stderr, "\n");
 }
 
 void	print_int_mtx(char *msg, int *mtx, int len)
@@ -89,40 +60,10 @@ void	print_int_mtx(char *msg, int *mtx, int len)
 	i = 0;
 	while (i < len)
 	{
-		fprintf(stderr,"%s %i: %i\n", msg, i + 1, mtx[i]);
+		fprintf(stderr, "%s %i: %i\n", msg, i + 1, mtx[i]);
 		i++;
 	}
 	ft_putchar_fd('\n', 2);
-}
-
-int	chunking_sort(t_stack stack, t_sizes sizes, int print)
-{
-	int	actions;
-	int	*ranks;
-	int	chunk_size;
-	int	chunk_number;
-	t_sizes	iter;
-
-	actions = 0;
-	chunk_size = 10; // ~ sqr(sizes.a)
-	chunk_number = sizes.a / chunk_size + ((sizes.a % chunk_size) != 0);
-	ranks = get_ranks(stack.a, sizes.a);
-	
-	while (iter.a < chunk_number)
-	{
-		iter.b = 0;
-		while (iter.b < sizes.a)
-		{
-			if (ranks[stack.a[0]] - (iter.a * chunk_size) >= 0 || ranks[stack.a[0]] - (iter.a * chunk_size) < chunk_size)
-				actions += do_pass_a(stack, &sizes, print);
-			else
-				actions += do_rotate(stack.a, sizes.a, print * 'a');
-			iter.b++;
-		}
-		actions += do_empty_b(stack, &sizes, print);
-		iter.a++;
-	}
-	return (actions);
 }
 
 //	Algurithms
@@ -153,7 +94,7 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 			alg_index = i;
 			best_act = actions;
 		}
-		fprintf(stderr,"\nAlgorithm %i\tSorting End: %i\n", i, actions);
+		fprintf(stderr, "\nAlgorithm %i\tSorting End: %i\n", i, actions);
 		i++;
 		if (best_act == 1)
 			break ;
@@ -200,8 +141,6 @@ int	main(int argc, const char *argv[])
 }
 
 #else
-
-
 
 int	main(void)
 {
@@ -281,8 +220,105 @@ rr	- rotate all stack front to back (down) - a b r(both) 9 10 11
 
 */
 
+int	*get_sort_order(int *to_sort, int len)
+{
+	int		j;
+	int		k;
+	int		temp;
+	int		*sorted;
 
+	sorted = ft_calloc(sizeof(int), len);
+	ft_memcpy(sorted, to_sort, sizeof(int) * len);
+	k = 0;
+	while (k < len - 1)
+	{
+		j = k + 1;
+		while (j < len)
+		{
+			if (sorted[k] > sorted[j])
+			{
+				temp = sorted[k];
+				sorted[k] = sorted[j];
+				sorted[j] = temp;
+			}
+			j++;
+		}
+		k++;
+	}
+	return (sorted);
+}
 
+int	*get_order(int *stack, int size)
+{
+	int	*order;
+	int	write;
+	int	read;
+
+	order = get_sort_order(stack, size);
+	if (!order)
+		return (NULL);
+	write = 1;
+	read = 1;
+	while (read < size)
+	{
+		if (order[read] != order[write - 1])
+		{
+			order[write] = order[read];
+			write++;
+		}
+		read++;
+	}
+	return (order);
+}
+
+int	get_rank(int value, int *order, int max, int size)
+{
+	int	i;
+
+	if (!order)
+		return (-1);
+	i = 0;
+	while (order[i] <= max && i < size)
+	{
+		if (order[i] == value)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	chunking_sort(t_stack stack, t_sizes sizes, int print)
+{
+	int		actions;
+	int		*order;
+	int		chunk_size;
+	int		rank;
+	int		max;
+	t_sizes	iter;
+
+	actions = 0;
+	chunk_size = 10; // ~ sqr(sizes.a)
+	order = get_order(stack.a, sizes.a);
+	iter.a = 0;
+	max = stack.a[src_super(stack.a, sizes.a, 1)];
+	while (sizes.a > 0)
+	{
+		iter.b = 0;
+		while (iter.b < sizes.a + sizes.b && sizes.a > 0)
+		{
+			rank = get_rank(stack.a[0], order, max, sizes.a + sizes.b);
+			if (rank >= iter.a && rank < iter.a + chunk_size)
+				actions += do_pass_a(stack, &sizes, print);
+			else
+				actions += do_rotate(stack.a, sizes.a, print * 'a');
+			iter.b++;
+		}
+		iter.a += chunk_size;
+	}
+	actions += do_empty_b(stack, &sizes, print);
+	free(order);
+	return (actions);
+}
 
 int	do_pass_a(t_stack stack, t_sizes *size, char print)
 {
@@ -753,7 +789,7 @@ int	src_super(int *stack, int size, int superlative)
 
 int	simple_s_solve(t_stack stack, t_sizes sizes, int print)
 {
-	fprintf(stderr,"Simple s\n");
+	fprintf(stderr, "Simple s\n");
 	do_swap(stack.a, print * 'a');
 	if (check_sort(stack.a, sizes.a, 1))
 		return (1);
@@ -764,7 +800,7 @@ int	simple_rr_solve(t_stack stack, t_sizes sizes, int print)
 {
 	int	actions;
 
-	fprintf(stderr,"Simple rr\n");
+	fprintf(stderr, "Simple rr\n");
 	actions = 0;
 	actions += do_revrotate(stack.a, sizes.a, print * 'a');
 	while (!check_sort(stack.a, sizes.a, 1) && actions <= sizes.a / 2)
@@ -778,7 +814,7 @@ int	simple_r_solve(t_stack stack, t_sizes sizes, int print)
 {
 	int	actions;
 
-	fprintf(stderr,"Simple r\n");
+	fprintf(stderr, "Simple r\n");
 	actions = 0;
 	actions += do_rotate(stack.a, sizes.a, print * 'a');
 	while (!check_sort(stack.a, sizes.a, 1) && actions <= sizes.a / 2)
@@ -795,10 +831,10 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 
 	actions = 0;
 	low_loc = src_super(stack.a, sizes->a, -1);
-	fprintf(stderr,"\t rotating a %d / %d = %d\n", low_loc, sizes->a, low_loc % (sizes->a / 2));
+	fprintf(stderr, "\t rotating a %d / %d = %d\n",
+		low_loc, sizes->a, low_loc % (sizes->a / 2));
 	while (low_loc)
 	{
-		
 		if (low_loc / (sizes->a / 2))
 		{
 			actions += do_revrotate(stack.a, sizes->a, print * 'a');
@@ -811,7 +847,8 @@ int	do_r_to_small(t_stack stack, t_sizes *sizes, char print)
 			actions += do_rotate(stack.a, sizes->a, print * 'a');
 			low_loc--;
 		}
-		fprintf(stderr,"\t rotating a %d / %d = %d\n", low_loc, sizes->a, low_loc % (sizes->a / 2));
+		fprintf(stderr, "\t rotating a %d / %d = %d\n",
+			low_loc, sizes->a, low_loc % (sizes->a / 2));
 	}
 	return (actions);
 }
@@ -820,10 +857,10 @@ int	do_rp_small(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
 
-	fprintf(stderr,"\t a to b\n");
+	fprintf(stderr, "\t a to b\n");
 	actions = 0;
 	actions += do_r_to_small(stack, sizes, print);
-	fprintf(stderr,"\t\tpree loop\n");
+	fprintf(stderr, "\t\tpree loop\n");
 	print_int_mtx("\t\tpost_loop", stack.a, sizes->a);
 	while (!check_sort(stack.a, sizes->a, 1))
 	{
@@ -840,7 +877,7 @@ int	do_empty_b(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
 
-	fprintf(stderr,"\t Empty b\n");
+	fprintf(stderr, "\t Empty b\n");
 	actions = 0;
 	while (sizes->b > 0)
 		actions += do_pass_b(stack, sizes, print);
@@ -851,11 +888,11 @@ int	rotate_to_side(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
 
-	fprintf(stderr,"Rotate to Side\n");
+	fprintf(stderr, "Rotate to Side\n");
 	actions = 0;
 	while (!check_sort(stack.a, stack_sizes.a, 1))
 	{
-		fprintf(stderr,"Attempt sort\n");
+		fprintf(stderr, "Attempt sort\n");
 		actions += do_rp_small(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
@@ -870,7 +907,7 @@ int	do_p_small(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
 
-	fprintf(stderr,"\t a to b\n");
+	fprintf(stderr, "\t a to b\n");
 	print_int_mtx("\t\tpre_loop", stack.a, sizes->a);
 	actions = 0;
 	if (sizes->a > 1 && stack.a[0] > stack.a[1])
@@ -899,7 +936,7 @@ int	do_p_big(t_stack stack, t_sizes *sizes, char print)
 {
 	int	actions;
 
-	fprintf(stderr,"\t b to a\n");
+	fprintf(stderr, "\t b to a\n");
 	actions = 0;
 	while (sizes->b > 0)
 	{
@@ -922,11 +959,11 @@ int	push_to_side(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
 
-	fprintf(stderr,"Push to Side\n");
+	fprintf(stderr, "Push to Side\n");
 	actions = 0;
 	while (!check_sort(stack.a, stack_sizes.a, 1))
 	{
-		fprintf(stderr,"Attempt sort\n");
+		fprintf(stderr, "Attempt sort\n");
 		actions += do_p_small(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
@@ -988,11 +1025,11 @@ int	push_to_side_stop(t_stack stack, t_sizes stack_sizes, int print)
 {
 	int	actions;
 
-	fprintf(stderr,"Push to Side Stop\n\n");
+	fprintf(stderr, "Push to Side Stop\n\n");
 	actions = 0;
 	while (!check_sort(stack.a, stack_sizes.a, 1))
 	{
-		fprintf(stderr,"Attempt sort\n");
+		fprintf(stderr, "Attempt sort\n");
 		actions += do_p_small_stop(stack, &stack_sizes, print);
 		print_int_mtx("\tpost_a.a", stack.a, stack_sizes.a);
 		print_int_mtx("\tpost_a.b", stack.b, stack_sizes.b);
@@ -1003,12 +1040,12 @@ int	push_to_side_stop(t_stack stack, t_sizes stack_sizes, int print)
 	return (actions);
 }
 
-int get_max_bits(int total_size)
+int	get_max_bits(int total_size)
 {
-	int max_value;
-	int max_bits;
+	int	max_value;
+	int	max_bits;
 
-	max_value = total_size - 1; 
+	max_value = total_size - 1;
 	if (max_value < 0)
 		return (0);
 	max_bits = 0;
@@ -1020,11 +1057,11 @@ int get_max_bits(int total_size)
 	return (max_bits);
 }
 
-int *get_ranks(int *stack, int size)
+int	*get_ranks(int *stack, int size)
 {
-	int *ranks;
-	t_sizes iter;
-	int rank_count;
+	int		*ranks;
+	t_sizes	iter;
+	int		rank_count;
 
 	ranks = (int *)malloc(sizeof(int) * size);
 	if (!ranks)
@@ -1046,12 +1083,12 @@ int *get_ranks(int *stack, int size)
 	return (ranks);
 }
 
-int radix_sort(t_stack stack, t_sizes sizes, int print)
+int	radix_sort(t_stack stack, t_sizes sizes, int print)
 {
-	int actions;
-	int max_bits;
-	t_sizes iter;
-	int *ranks;
+	int		actions;
+	int		max_bits;
+	t_sizes	iter;
+	int		*ranks;
 
 	actions = 0;
 	ranks = get_ranks(stack.a, sizes.a);

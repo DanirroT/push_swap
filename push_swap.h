@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com>   +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/12/02 17:56:59 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2025/12/04 14:12:46 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,18 @@ int		do_rp_small(t_stack stack, t_sizes *sizes, char print);
 int		do_empty_b(t_stack stack, t_sizes *sizes, char print);
 int		rotate_to_side(t_stack stack, t_sizes stack_sizes, int print);
 
-// radix sort (500)
+// radix Sort (500) 
 int		get_max_bits(int total_size);
 int		*get_ranks(int *stack, int size);
 int		radix_sort(t_stack stack, t_sizes sizes, int print);
 
-void	print_stack(int *mtx, int len);
+// Chunking Sort (100)
+int		*get_sort_order(int *to_sort, int len);
+int		*get_order(int *stack, int size);
+int		get_rank(int value, int *order, int max, int size);
+int		chunking_sort(t_stack stack, t_sizes sizes, int print);
 
+void	print_stack(int *mtx, int len);
 void	print_stacks(char *msg, t_stack stacks, t_sizes sizes);
 
 #endif
