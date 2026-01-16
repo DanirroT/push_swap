@@ -1,0 +1,90 @@
+Input 1: 31
+Input 2: 50
+Input 3: 23
+Input 4: 82
+Input 5: 90
+
+Sorted 1: 23
+Sorted 2: 31
+Sorted 3: 50
+Sorted 4: 82
+Sorted 5: 90
+
+Radix_sort
+     Start: a   31   50   23   82   90		: b	
+	preLogic lookup: 31 Rank: 1
+post logic: a   50   23   82   90   31		: b	
+	preLogic lookup: 50 Rank: 2
+post logic: a   23   82   90   31		: b   50	
+	preLogic lookup: 23 Rank: 0
+post logic: a   82   90   31		: b   50   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   90   31   82		: b   50   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   31   82		: b   90   50   23	
+  preEmpty: a   31   82		: b   90   50   23	
+	preLogic lookup: 23 Rank: 0
+post logic: a   50   90   31   82		: b   23	
+	preLogic lookup: 50 Rank: 2
+post logic: a   90   31   82   50		: b   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   31   82   50		: b   90   23	
+	preLogic lookup: 31 Rank: 1
+post logic: a   82   50		: b   90   31   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   50   82		: b   90   31   23	
+  preEmpty: a   50   82		: b   90   31   23	
+	preLogic lookup: 23 Rank: 0
+post logic: a   31   90   50   82		: b   23	
+	preLogic lookup: 31 Rank: 1
+post logic: a   90   50   82		: b   31   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   50   82   90		: b   31   23	
+	preLogic lookup: 50 Rank: 2
+post logic: a   82   90		: b   50   31   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   90		: b   82   50   31   23	
+  preEmpty: a   90		: b   82   50   31   23	
+       END: a   23   31   50   82   90		: b	
+
+Algorithm 0	Sorting End: 25
+
+
+Printing Algorithm: 0
+
+Radix_sort
+     Start: a   31   50   23   82   90		: b	
+	preLogic lookup: 31 Rank: 1
+post logic: a   50   23   82   90   31		: b	
+	preLogic lookup: 50 Rank: 2
+post logic: a   23   82   90   31		: b   50	
+	preLogic lookup: 23 Rank: 0
+post logic: a   82   90   31		: b   50   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   90   31   82		: b   50   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   31   82		: b   90   50   23	
+  preEmpty: a   31   82		: b   90   50   23	
+	preLogic lookup: 23 Rank: 0
+post logic: a   50   90   31   82		: b   23	
+	preLogic lookup: 50 Rank: 2
+post logic: a   90   31   82   50		: b   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   31   82   50		: b   90   23	
+	preLogic lookup: 31 Rank: 1
+post logic: a   82   50		: b   90   31   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   50   82		: b   90   31   23	
+  preEmpty: a   50   82		: b   90   31   23	
+	preLogic lookup: 23 Rank: 0
+post logic: a   31   90   50   82		: b   23	
+	preLogic lookup: 31 Rank: 1
+post logic: a   90   50   82		: b   31   23	
+	preLogic lookup: 90 Rank: 4
+post logic: a   50   82   90		: b   31   23	
+	preLogic lookup: 50 Rank: 2
+post logic: a   82   90		: b   50   31   23	
+	preLogic lookup: 82 Rank: 3
+post logic: a   90		: b   82   50   31   23	
+  preEmpty: a   90		: b   82   50   31   23	
+       END: a   23   31   50   82   90		: b	

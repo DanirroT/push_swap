@@ -1,0 +1,184 @@
+Input 1: 583
+Input 2: 467
+Input 3: 536
+Input 4: 469
+Input 5: 903
+Input 6: 476
+
+Sorted 1: 467
+Sorted 2: 469
+Sorted 3: 476
+Sorted 4: 536
+Sorted 5: 583
+Sorted 6: 903
+
+Chunking Sort
+	order  1: 467
+	order  2: 469
+	order  3: 476
+	order  4: 536
+	order  5: 583
+	order  6: 903
+
+	 a to b , max 903
+		pree loop
+		post_loop 1: 583
+		post_loop 2: 467
+		post_loop 3: 536
+		post_loop 4: 469
+		post_loop 5: 903
+		post_loop 6: 476
+
+	new chunk
+		post_loop 1: 467
+		post_loop 2: 536
+		post_loop 3: 469
+		post_loop 4: 903
+		post_loop 5: 476
+
+		post_loop 1: 536
+		post_loop 2: 469
+		post_loop 3: 903
+		post_loop 4: 476
+
+		post_loop 1: 469
+		post_loop 2: 903
+		post_loop 3: 476
+
+		post_loop 1: 903
+		post_loop 2: 476
+
+		post_loop 1: 476
+
+
+
+	post_a.b 1: 476
+	post_a.b 2: 903
+	post_a.b 3: 469
+	post_a.b 4: 536
+	post_a.b 5: 467
+	post_a.b 6: 583
+
+	 a to b
+		pree loop
+		post_loop 1: 903
+		post_loop 2: 469
+		post_loop 3: 536
+		post_loop 4: 467
+		post_loop 5: 583
+		post_loop 6: 476
+
+		post_loop 1: 583
+		post_loop 2: 476
+		post_loop 3: 469
+		post_loop 4: 536
+		post_loop 5: 467
+
+		post_loop 1: 536
+		post_loop 2: 467
+		post_loop 3: 476
+		post_loop 4: 469
+
+		post_loop 1: 476
+		post_loop 2: 469
+		post_loop 3: 467
+
+    pass b: a  476  536  583  903		    pass b: b  469  467	
+    pass b: a  469  476  536  583  903		    pass b: b  467	
+    pass b: a  467  469  476  536  583  903		    pass b: b	
+	post_a.a 1: 467
+	post_a.a 2: 469
+	post_a.a 3: 476
+	post_a.a 4: 536
+	post_a.a 5: 583
+	post_a.a 6: 903
+
+
+
+Algorithm 0	Sorting End: 18
+
+
+Printing Algorithm: 0
+
+Chunking Sort
+	order  1: 467
+	order  2: 469
+	order  3: 476
+	order  4: 536
+	order  5: 583
+	order  6: 903
+
+	 a to b , max 903
+		pree loop
+		post_loop 1: 583
+		post_loop 2: 467
+		post_loop 3: 536
+		post_loop 4: 469
+		post_loop 5: 903
+		post_loop 6: 476
+
+	new chunk
+		post_loop 1: 467
+		post_loop 2: 536
+		post_loop 3: 469
+		post_loop 4: 903
+		post_loop 5: 476
+
+		post_loop 1: 536
+		post_loop 2: 469
+		post_loop 3: 903
+		post_loop 4: 476
+
+		post_loop 1: 469
+		post_loop 2: 903
+		post_loop 3: 476
+
+		post_loop 1: 903
+		post_loop 2: 476
+
+		post_loop 1: 476
+
+
+
+	post_a.b 1: 476
+	post_a.b 2: 903
+	post_a.b 3: 469
+	post_a.b 4: 536
+	post_a.b 5: 467
+	post_a.b 6: 583
+
+	 a to b
+		pree loop
+		post_loop 1: 903
+		post_loop 2: 469
+		post_loop 3: 536
+		post_loop 4: 467
+		post_loop 5: 583
+		post_loop 6: 476
+
+		post_loop 1: 583
+		post_loop 2: 476
+		post_loop 3: 469
+		post_loop 4: 536
+		post_loop 5: 467
+
+		post_loop 1: 536
+		post_loop 2: 467
+		post_loop 3: 476
+		post_loop 4: 469
+
+		post_loop 1: 476
+		post_loop 2: 469
+		post_loop 3: 467
+
+    pass b: a  476  536  583  903		    pass b: b  469  467	
+    pass b: a  469  476  536  583  903		    pass b: b  467	
+    pass b: a  467  469  476  536  583  903		    pass b: b	
+	post_a.a 1: 467
+	post_a.a 2: 469
+	post_a.a 3: 476
+	post_a.a 4: 536
+	post_a.a 5: 583
+	post_a.a 6: 903
+
+

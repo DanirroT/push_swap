@@ -1,0 +1,60 @@
+Stack size A: 5
+  374  198   16  843  371   16  198  371  374  843
+Algorithm 0	Sorting End: -1
+
+Algorithm 1	Sorting End: -1
+
+Algorithm 2	Sorting End: 11
+
+Algorithm 3	Sorting End: 13
+
+Algorithm 4	Sorting End: 8
+
+Algorithm 5	Radix Sort
+     Start: a  374  198   16  843  371	: b
+	preLogic lookup: 374 Rank: 3
+post logic: a  198   16  843  371  374	: b
+	preLogic lookup: 198 Rank: 1
+post logic: a   16  843  371  374  198	: b
+	preLogic lookup: 16 Rank: 0
+post logic: a  843  371  374  198	: b   16
+	preLogic lookup: 843 Rank: 4
+post logic: a  371  374  198	: b  843   16
+	preLogic lookup: 371 Rank: 2
+post logic: a  374  198	: b  371  843   16
+  preEmpty: a  374  198	: b  371  843   16
+	preLogic lookup: 16 Rank: 0
+post logic: a  843  371  374  198	: b   16
+	preLogic lookup: 843 Rank: 4
+post logic: a  371  374  198	: b  843   16
+	preLogic lookup: 371 Rank: 2
+post logic: a  374  198  371	: b  843   16
+	preLogic lookup: 374 Rank: 3
+post logic: a  198  371  374	: b  843   16
+	preLogic lookup: 198 Rank: 1
+post logic: a  371  374	: b  198  843   16
+  preEmpty: a  371  374	: b  198  843   16
+	preLogic lookup: 16 Rank: 0
+post logic: a  843  198  371  374	: b   16
+	preLogic lookup: 843 Rank: 4
+post logic: a  198  371  374  843	: b   16
+	preLogic lookup: 198 Rank: 1
+post logic: a  371  374  843	: b  198   16
+	preLogic lookup: 371 Rank: 2
+post logic: a  374  843	: b  371  198   16
+	preLogic lookup: 374 Rank: 3
+post logic: a  843	: b  374  371  198   16
+  preEmpty: a  843	: b  374  371  198   16
+       END: a   16  198  371  374  843	: b
+	Sorting End: 25
+
+Algorithm 6	Chunking Sort
+     Start: a  374  198   16  843  371	: b
+     Pre A: a  374  198   16  843  371	: b
+    Post A: a	: b  371  843   16  198  374
+       END: a   16  198  371  374  843	: b
+	Sorting End: 14
+
+
+Printing Algorithm: 4
+

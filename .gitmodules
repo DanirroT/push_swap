@@ -1,0 +1,6 @@
+[submodule "libft2"]
+	path = libft2
+	url = git@github.com:DanirroT/LibFT.git
+[submodule "libft"]
+	path = libft
+	url = git@github.com:DanirroT/LibFT.git

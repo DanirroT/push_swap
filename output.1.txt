@@ -1,0 +1,29 @@
+Input 1: 36
+
+Sorted 1: 36
+
+
+radix_sort
+     Start: a -1768658885		: b	
+       END: a -1768658885		: b	
+
+Algorithm 0	Sorting End: 0
+
+chunking_sort
+     Start: a -1768658885		: b	
+     Pre A: a -1768658885		: b	
+    Post A: a		: b -1768658885	
+       END: a -1768658885		: b	
+
+Algorithm 1	Sorting End: 2
+
+
+Printing Algorithm: 1
+
+
+chunking_sort
+     Start: a -1768658885		: b	
+     Pre A: a -1768658885		: b	
+    Post A: a		: b -1768658885	
+       END: a -1768658885		: b	
+free(): unaligned chunk detected in tcache 2

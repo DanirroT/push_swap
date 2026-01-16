@@ -1,0 +1,292 @@
+Input 1: 92
+Input 2: 73
+Input 3: 49
+Input 4: 53
+Input 5: 42
+Input 6: 99
+Input 7: 28
+Input 8: 93
+Input 9: 70
+Input 10: 9
+Input 11: 55
+Input 12: 77
+Input 13: 11
+Input 14: 30
+Input 15: 33
+
+Sorted 1: 9
+Sorted 2: 11
+Sorted 3: 28
+Sorted 4: 30
+Sorted 5: 33
+Sorted 6: 42
+Sorted 7: 49
+Sorted 8: 53
+Sorted 9: 55
+Sorted 10: 70
+Sorted 11: 73
+Sorted 12: 77
+Sorted 13: 92
+Sorted 14: 93
+Sorted 15: 99
+
+Radix_sort
+     Start: a   92   73   49   53   42   99   28   93   70    9   55   77   11   30   33		: b	
+	preLogic lookup: 92 Rank: 12
+post logic: a   73   49   53   42   99   28   93   70    9   55   77   11   30   33		: b   92	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   53   42   99   28   93   70    9   55   77   11   30   33		: b   73   92	
+	preLogic lookup: 49 Rank: 6
+post logic: a   53   42   99   28   93   70    9   55   77   11   30   33		: b   49   73   92	
+	preLogic lookup: 53 Rank: 7
+post logic: a   42   99   28   93   70    9   55   77   11   30   33   53		: b   49   73   92	
+	preLogic lookup: 42 Rank: 5
+post logic: a   99   28   93   70    9   55   77   11   30   33   53   42		: b   49   73   92	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28   93   70    9   55   77   11   30   33   53   42		: b   99   49   73   92	
+	preLogic lookup: 28 Rank: 2
+post logic: a   93   70    9   55   77   11   30   33   53   42		: b   28   99   49   73   92	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70    9   55   77   11   30   33   53   42   93		: b   28   99   49   73   92	
+	preLogic lookup: 70 Rank: 9
+post logic: a    9   55   77   11   30   33   53   42   93   70		: b   28   99   49   73   92	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   77   11   30   33   53   42   93   70		: b    9   28   99   49   73   92	
+	preLogic lookup: 55 Rank: 8
+post logic: a   77   11   30   33   53   42   93   70		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 77 Rank: 11
+post logic: a   11   30   33   53   42   93   70   77		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 11 Rank: 1
+post logic: a   30   33   53   42   93   70   77   11		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 30 Rank: 3
+post logic: a   33   53   42   93   70   77   11   30		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 33 Rank: 4
+post logic: a   53   42   93   70   77   11   30		: b   33   55    9   28   99   49   73   92	
+  preEmpty: a   53   42   93   70   77   11   30		: b   33   55    9   28   99   49   73   92	
+	preLogic lookup: 92 Rank: 12
+post logic: a   73   49   99   28    9   55   33   53   42   93   70   77   11   30		: b   92	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   99   28    9   55   33   53   42   93   70   77   11   30   73		: b   92	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   28    9   55   33   53   42   93   70   77   11   30   73   49		: b   92	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28    9   55   33   53   42   93   70   77   11   30   73   49   99		: b   92	
+	preLogic lookup: 28 Rank: 2
+post logic: a    9   55   33   53   42   93   70   77   11   30   73   49   99   28		: b   92	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   33   53   42   93   70   77   11   30   73   49   99   28		: b    9   92	
+	preLogic lookup: 55 Rank: 8
+post logic: a   33   53   42   93   70   77   11   30   73   49   99   28		: b   55    9   92	
+	preLogic lookup: 33 Rank: 4
+post logic: a   53   42   93   70   77   11   30   73   49   99   28		: b   33   55    9   92	
+	preLogic lookup: 53 Rank: 7
+post logic: a   42   93   70   77   11   30   73   49   99   28   53		: b   33   55    9   92	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   70   77   11   30   73   49   99   28   53		: b   42   33   55    9   92	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70   77   11   30   73   49   99   28   53		: b   93   42   33   55    9   92	
+	preLogic lookup: 70 Rank: 9
+post logic: a   77   11   30   73   49   99   28   53		: b   70   93   42   33   55    9   92	
+	preLogic lookup: 77 Rank: 11
+post logic: a   11   30   73   49   99   28   53   77		: b   70   93   42   33   55    9   92	
+	preLogic lookup: 11 Rank: 1
+post logic: a   30   73   49   99   28   53   77		: b   11   70   93   42   33   55    9   92	
+	preLogic lookup: 30 Rank: 3
+post logic: a   73   49   99   28   53   77   30		: b   11   70   93   42   33   55    9   92	
+  preEmpty: a   73   49   99   28   53   77   30		: b   11   70   93   42   33   55    9   92	
+	preLogic lookup: 92 Rank: 12
+post logic: a    9   55   33   42   93   70   11   73   49   99   28   53   77   30   92		: b	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   33   42   93   70   11   73   49   99   28   53   77   30   92		: b    9	
+	preLogic lookup: 55 Rank: 8
+post logic: a   33   42   93   70   11   73   49   99   28   53   77   30   92		: b   55    9	
+	preLogic lookup: 33 Rank: 4
+post logic: a   42   93   70   11   73   49   99   28   53   77   30   92   33		: b   55    9	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   70   11   73   49   99   28   53   77   30   92   33   42		: b   55    9	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70   11   73   49   99   28   53   77   30   92   33   42   93		: b   55    9	
+	preLogic lookup: 70 Rank: 9
+post logic: a   11   73   49   99   28   53   77   30   92   33   42   93		: b   70   55    9	
+	preLogic lookup: 11 Rank: 1
+post logic: a   73   49   99   28   53   77   30   92   33   42   93		: b   11   70   55    9	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   99   28   53   77   30   92   33   42   93		: b   73   11   70   55    9	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   28   53   77   30   92   33   42   93   49		: b   73   11   70   55    9	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28   53   77   30   92   33   42   93   49   99		: b   73   11   70   55    9	
+	preLogic lookup: 28 Rank: 2
+post logic: a   53   77   30   92   33   42   93   49   99		: b   28   73   11   70   55    9	
+	preLogic lookup: 53 Rank: 7
+post logic: a   77   30   92   33   42   93   49   99   53		: b   28   73   11   70   55    9	
+	preLogic lookup: 77 Rank: 11
+post logic: a   30   92   33   42   93   49   99   53		: b   77   28   73   11   70   55    9	
+	preLogic lookup: 30 Rank: 3
+post logic: a   92   33   42   93   49   99   53		: b   30   77   28   73   11   70   55    9	
+  preEmpty: a   92   33   42   93   49   99   53		: b   30   77   28   73   11   70   55    9	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   70   11   73   28   77   30   92   33   42   93   49   99   53		: b    9	
+	preLogic lookup: 55 Rank: 8
+post logic: a   70   11   73   28   77   30   92   33   42   93   49   99   53   55		: b    9	
+	preLogic lookup: 70 Rank: 9
+post logic: a   11   73   28   77   30   92   33   42   93   49   99   53   55   70		: b    9	
+	preLogic lookup: 11 Rank: 1
+post logic: a   73   28   77   30   92   33   42   93   49   99   53   55   70		: b   11    9	
+	preLogic lookup: 73 Rank: 10
+post logic: a   28   77   30   92   33   42   93   49   99   53   55   70   73		: b   11    9	
+	preLogic lookup: 28 Rank: 2
+post logic: a   77   30   92   33   42   93   49   99   53   55   70   73		: b   28   11    9	
+	preLogic lookup: 77 Rank: 11
+post logic: a   30   92   33   42   93   49   99   53   55   70   73   77		: b   28   11    9	
+	preLogic lookup: 30 Rank: 3
+post logic: a   92   33   42   93   49   99   53   55   70   73   77		: b   30   28   11    9	
+	preLogic lookup: 92 Rank: 12
+post logic: a   33   42   93   49   99   53   55   70   73   77   92		: b   30   28   11    9	
+	preLogic lookup: 33 Rank: 4
+post logic: a   42   93   49   99   53   55   70   73   77   92		: b   33   30   28   11    9	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   49   99   53   55   70   73   77   92		: b   42   33   30   28   11    9	
+	preLogic lookup: 93 Rank: 13
+post logic: a   49   99   53   55   70   73   77   92   93		: b   42   33   30   28   11    9	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   53   55   70   73   77   92   93		: b   49   42   33   30   28   11    9	
+	preLogic lookup: 99 Rank: 14
+post logic: a   53   55   70   73   77   92   93   99		: b   49   42   33   30   28   11    9	
+	preLogic lookup: 53 Rank: 7
+post logic: a   55   70   73   77   92   93   99		: b   53   49   42   33   30   28   11    9	
+  preEmpty: a   55   70   73   77   92   93   99		: b   53   49   42   33   30   28   11    9	
+       END: a    9   11   28   30   33   42   49   53   55   70   73   77   92   93   99		: b	
+
+Algorithm 0	Sorting End: 92
+
+
+Printing Algorithm: 0
+
+Radix_sort
+     Start: a   92   73   49   53   42   99   28   93   70    9   55   77   11   30   33		: b	
+	preLogic lookup: 92 Rank: 12
+post logic: a   73   49   53   42   99   28   93   70    9   55   77   11   30   33		: b   92	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   53   42   99   28   93   70    9   55   77   11   30   33		: b   73   92	
+	preLogic lookup: 49 Rank: 6
+post logic: a   53   42   99   28   93   70    9   55   77   11   30   33		: b   49   73   92	
+	preLogic lookup: 53 Rank: 7
+post logic: a   42   99   28   93   70    9   55   77   11   30   33   53		: b   49   73   92	
+	preLogic lookup: 42 Rank: 5
+post logic: a   99   28   93   70    9   55   77   11   30   33   53   42		: b   49   73   92	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28   93   70    9   55   77   11   30   33   53   42		: b   99   49   73   92	
+	preLogic lookup: 28 Rank: 2
+post logic: a   93   70    9   55   77   11   30   33   53   42		: b   28   99   49   73   92	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70    9   55   77   11   30   33   53   42   93		: b   28   99   49   73   92	
+	preLogic lookup: 70 Rank: 9
+post logic: a    9   55   77   11   30   33   53   42   93   70		: b   28   99   49   73   92	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   77   11   30   33   53   42   93   70		: b    9   28   99   49   73   92	
+	preLogic lookup: 55 Rank: 8
+post logic: a   77   11   30   33   53   42   93   70		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 77 Rank: 11
+post logic: a   11   30   33   53   42   93   70   77		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 11 Rank: 1
+post logic: a   30   33   53   42   93   70   77   11		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 30 Rank: 3
+post logic: a   33   53   42   93   70   77   11   30		: b   55    9   28   99   49   73   92	
+	preLogic lookup: 33 Rank: 4
+post logic: a   53   42   93   70   77   11   30		: b   33   55    9   28   99   49   73   92	
+  preEmpty: a   53   42   93   70   77   11   30		: b   33   55    9   28   99   49   73   92	
+	preLogic lookup: 92 Rank: 12
+post logic: a   73   49   99   28    9   55   33   53   42   93   70   77   11   30		: b   92	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   99   28    9   55   33   53   42   93   70   77   11   30   73		: b   92	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   28    9   55   33   53   42   93   70   77   11   30   73   49		: b   92	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28    9   55   33   53   42   93   70   77   11   30   73   49   99		: b   92	
+	preLogic lookup: 28 Rank: 2
+post logic: a    9   55   33   53   42   93   70   77   11   30   73   49   99   28		: b   92	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   33   53   42   93   70   77   11   30   73   49   99   28		: b    9   92	
+	preLogic lookup: 55 Rank: 8
+post logic: a   33   53   42   93   70   77   11   30   73   49   99   28		: b   55    9   92	
+	preLogic lookup: 33 Rank: 4
+post logic: a   53   42   93   70   77   11   30   73   49   99   28		: b   33   55    9   92	
+	preLogic lookup: 53 Rank: 7
+post logic: a   42   93   70   77   11   30   73   49   99   28   53		: b   33   55    9   92	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   70   77   11   30   73   49   99   28   53		: b   42   33   55    9   92	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70   77   11   30   73   49   99   28   53		: b   93   42   33   55    9   92	
+	preLogic lookup: 70 Rank: 9
+post logic: a   77   11   30   73   49   99   28   53		: b   70   93   42   33   55    9   92	
+	preLogic lookup: 77 Rank: 11
+post logic: a   11   30   73   49   99   28   53   77		: b   70   93   42   33   55    9   92	
+	preLogic lookup: 11 Rank: 1
+post logic: a   30   73   49   99   28   53   77		: b   11   70   93   42   33   55    9   92	
+	preLogic lookup: 30 Rank: 3
+post logic: a   73   49   99   28   53   77   30		: b   11   70   93   42   33   55    9   92	
+  preEmpty: a   73   49   99   28   53   77   30		: b   11   70   93   42   33   55    9   92	
+	preLogic lookup: 92 Rank: 12
+post logic: a    9   55   33   42   93   70   11   73   49   99   28   53   77   30   92		: b	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   33   42   93   70   11   73   49   99   28   53   77   30   92		: b    9	
+	preLogic lookup: 55 Rank: 8
+post logic: a   33   42   93   70   11   73   49   99   28   53   77   30   92		: b   55    9	
+	preLogic lookup: 33 Rank: 4
+post logic: a   42   93   70   11   73   49   99   28   53   77   30   92   33		: b   55    9	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   70   11   73   49   99   28   53   77   30   92   33   42		: b   55    9	
+	preLogic lookup: 93 Rank: 13
+post logic: a   70   11   73   49   99   28   53   77   30   92   33   42   93		: b   55    9	
+	preLogic lookup: 70 Rank: 9
+post logic: a   11   73   49   99   28   53   77   30   92   33   42   93		: b   70   55    9	
+	preLogic lookup: 11 Rank: 1
+post logic: a   73   49   99   28   53   77   30   92   33   42   93		: b   11   70   55    9	
+	preLogic lookup: 73 Rank: 10
+post logic: a   49   99   28   53   77   30   92   33   42   93		: b   73   11   70   55    9	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   28   53   77   30   92   33   42   93   49		: b   73   11   70   55    9	
+	preLogic lookup: 99 Rank: 14
+post logic: a   28   53   77   30   92   33   42   93   49   99		: b   73   11   70   55    9	
+	preLogic lookup: 28 Rank: 2
+post logic: a   53   77   30   92   33   42   93   49   99		: b   28   73   11   70   55    9	
+	preLogic lookup: 53 Rank: 7
+post logic: a   77   30   92   33   42   93   49   99   53		: b   28   73   11   70   55    9	
+	preLogic lookup: 77 Rank: 11
+post logic: a   30   92   33   42   93   49   99   53		: b   77   28   73   11   70   55    9	
+	preLogic lookup: 30 Rank: 3
+post logic: a   92   33   42   93   49   99   53		: b   30   77   28   73   11   70   55    9	
+  preEmpty: a   92   33   42   93   49   99   53		: b   30   77   28   73   11   70   55    9	
+	preLogic lookup: 9 Rank: 0
+post logic: a   55   70   11   73   28   77   30   92   33   42   93   49   99   53		: b    9	
+	preLogic lookup: 55 Rank: 8
+post logic: a   70   11   73   28   77   30   92   33   42   93   49   99   53   55		: b    9	
+	preLogic lookup: 70 Rank: 9
+post logic: a   11   73   28   77   30   92   33   42   93   49   99   53   55   70		: b    9	
+	preLogic lookup: 11 Rank: 1
+post logic: a   73   28   77   30   92   33   42   93   49   99   53   55   70		: b   11    9	
+	preLogic lookup: 73 Rank: 10
+post logic: a   28   77   30   92   33   42   93   49   99   53   55   70   73		: b   11    9	
+	preLogic lookup: 28 Rank: 2
+post logic: a   77   30   92   33   42   93   49   99   53   55   70   73		: b   28   11    9	
+	preLogic lookup: 77 Rank: 11
+post logic: a   30   92   33   42   93   49   99   53   55   70   73   77		: b   28   11    9	
+	preLogic lookup: 30 Rank: 3
+post logic: a   92   33   42   93   49   99   53   55   70   73   77		: b   30   28   11    9	
+	preLogic lookup: 92 Rank: 12
+post logic: a   33   42   93   49   99   53   55   70   73   77   92		: b   30   28   11    9	
+	preLogic lookup: 33 Rank: 4
+post logic: a   42   93   49   99   53   55   70   73   77   92		: b   33   30   28   11    9	
+	preLogic lookup: 42 Rank: 5
+post logic: a   93   49   99   53   55   70   73   77   92		: b   42   33   30   28   11    9	
+	preLogic lookup: 93 Rank: 13
+post logic: a   49   99   53   55   70   73   77   92   93		: b   42   33   30   28   11    9	
+	preLogic lookup: 49 Rank: 6
+post logic: a   99   53   55   70   73   77   92   93		: b   49   42   33   30   28   11    9	
+	preLogic lookup: 99 Rank: 14
+post logic: a   53   55   70   73   77   92   93   99		: b   49   42   33   30   28   11    9	
+	preLogic lookup: 53 Rank: 7
+post logic: a   55   70   73   77   92   93   99		: b   53   49   42   33   30   28   11    9	
+  preEmpty: a   55   70   73   77   92   93   99		: b   53   49   42   33   30   28   11    9	
+       END: a    9   11   28   30   33   42   49   53   55   70   73   77   92   93   99		: b	
