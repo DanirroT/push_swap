@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/15 16:06:42 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/01/24 19:10:36 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	ft_out(t_stack *stack, int *input, char **handle_temp, int code)
 // simple_s_solve, simple_rotate_solve, push_to_side, push_to_side_empty,
 //	rotate_to_side, radix_sort, chunking_sort, 
 
-void	*assign_funct(void)
+void	*assign_algs(void)
 {
 	int	(**algorithms)(t_stack, t_sizes, int);
 
-	algorithms = malloc(sizeof(int (*)(t_stack, t_sizes, int)) * 8);
+	algorithms = malloc(sizeof(int (*)(t_stack, t_sizes, int)) * 9);
 	algorithms[0] = simple_s_solve;
 	algorithms[1] = simple_rotate_solve;
 	algorithms[2] = solve_for_three;
@@ -88,29 +88,26 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input,
 
 //#ifdef NO_MAIN
 
-int	*handle_args(int argc, char *argv[], int size)
+int	*handle_args(char *args[], int size)
 {
-	int		i;
-	int		*input;
-	char	**temp;
+	t_mult_ind	ind;
+	int			*input;
+	char		**temp;
 
 	input = malloc(size * sizeof(int));
-	if (!input || argv[1][0] == '\0')
+	if (!input || args[1][0] == '\0')
 		return (free(input), NULL);
-	i = -1;
-	if (argc == 2)
+	ind.i = 0;
+	ind.k = 0;
+	while (args[++ind.i])
 	{
-		temp = ft_split_space(argv[1]);
+		ind.j = -1;
+		temp = ft_split_space(args[ind.i]);
 		if (!temp)
 			return (free(input), NULL);
-		while (++i < size)
-			input[i] = check_do_atoi(temp[i], input, temp);
+		while (temp[++ind.j])
+			input[ind.k++] = check_do_atoi(temp, ind.j, input);
 		trash_2d_char(temp);
-	}
-	else
-	{
-		while (++i < size)
-			input[i] = check_do_atoi(argv[i + 1], input, NULL);
 	}
 	return (input);
 }
@@ -125,21 +122,16 @@ int	main(int argc, char *argv[])
 		return (ft_out(NULL, NULL, NULL, -2));
 	else if (argc == 1)
 		return (ft_out(NULL, NULL, NULL, 0));
-	else if (argc == 2)
-		stack_sizes.a = ft_num_count(argv[1]);
-	else
-		stack_sizes.a = argc - 1;
-	if (stack_sizes.a == -1)
-		return (ft_out(NULL, NULL, NULL, 0));
-	input = handle_args(argc, argv, stack_sizes.a);
+	stack_sizes.a = ft_num_count(&argv[1]);
+	input = handle_args(argv, stack_sizes.a);
 	stack.a = malloc(sizeof(int) * stack_sizes.a);
 	stack.b = malloc(sizeof(int) * stack_sizes.a);
 	if (!stack.b || !stack.a || !input || check_dups(input, stack_sizes.a))
 		return (ft_out(&stack, input, NULL, -1));
-	if (stack_sizes.a == 1 || check_sort(input, stack_sizes.a, 1))
+	if (stack_sizes.a <= 1 || check_sort(input, stack_sizes.a, 1))
 		return (ft_out(&stack, input, NULL, 0));
 	stack_sizes.b = 0;
-	do_sorting(stack, stack_sizes, input, assign_funct());
+	do_sorting(stack, stack_sizes, input, assign_algs());
 	return (ft_out(&stack, input, NULL, 0));
 }
 

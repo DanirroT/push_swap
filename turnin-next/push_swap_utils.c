@@ -6,62 +6,68 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 15:24:35 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/15 13:31:43 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/01/24 19:01:41 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_do_atoi(const char *nptr, int *input, char **handle_temp)
+int	check_do_atoi(char **arg, int rep, int *input)
 {
 	int			neg;
+	int			i;
 	long long	num;
 
 	num = 0;
+	i = 0;
 	neg = 1;
-	while (ft_isspace(*nptr))
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
-		if (*nptr++ == '-')
+	if (arg[rep][i] == '-' || arg[rep][i] == '+')
+		if (arg[rep][i++] == '-')
 			neg = -1;
-	if (!ft_isdigit(*nptr))
-		ft_out(NULL, input, handle_temp, 2);
-	while (ft_isdigit(*nptr))
+	if (!ft_isdigit(arg[rep][i]))
+		ft_out(NULL, input, arg, 2);
+	while (ft_isdigit(arg[rep][i]))
 	{
-		if ((num * 10 + (*nptr - '0')) * neg > INT_MAX
-			|| (num * 10 + (*nptr - '0')) * neg < INT_MIN)
-			ft_out(NULL, input, handle_temp, 1);
-		num = num * 10 + (*nptr - '0');
-		nptr++;
+		if ((num * 10 + (arg[rep][i] - '0')) * neg > INT_MAX
+			|| (num * 10 + (arg[rep][i] - '0')) * neg < INT_MIN)
+			ft_out(NULL, input, arg, 1);
+		num = num * 10 + (arg[rep][i] - '0');
+		i++;
 	}
-	while (ft_isspace(*nptr))
-		nptr++;
-	if (*nptr != '\0')
-		ft_out(NULL, input, handle_temp, 2);
+	if (arg[rep][i] != '\0')
+		ft_out(NULL, input, arg, 2);
 	return (neg * num);
 }
 
-int	ft_num_count(char const *s)
-{
-	int	num_count;
-	int	in_num;
-	int	i;
+/* 	else if (argc == 2)
+		stack_sizes.a = ft_num_count(argv[1]);
+	else
+		stack_sizes.a = argc - 1; */
 
-	in_num = 0;
+int	ft_num_count(char *args[])
+{
+	int			num_count;
+	int			in_num;
+	t_mult_ind	ind;
+
 	num_count = 0;
-	i = 0;
-	while (s[i])
+	ind.i = -1;
+	while (args[++ind.i])
 	{
-		if (!ft_isitoa(s[i]))
-			ft_out(NULL, NULL, NULL, 2);
-		if (!ft_isspace(s[i]) && in_num == 0)
+		in_num = 0;
+		ind.j = -1;
+		while (args[ind.i][++ind.j])
 		{
-			in_num = 1;
-			num_count++;
+			if (!ft_isitoa(args[ind.i][ind.j]))
+				ft_out(NULL, NULL, NULL, -1);
+			if (!ft_isspace(args[ind.i][ind.j]) && in_num == 0)
+			{
+				in_num = 1;
+				num_count++;
+			}
+			if (ft_isspace(args[ind.i][ind.j]))
+				in_num = 0;
 		}
-		else if (ft_isspace(s[i]))
-			in_num = 0;
-		i++;
 	}
 	return (num_count);
 }

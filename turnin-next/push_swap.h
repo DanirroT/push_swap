@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/15 14:15:30 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/02/09 16:44:30 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	*assign_funct(void);
 int		main(int argc, char *argv[]);
 
 // utils
-int		check_do_atoi(const char *nptr, int *input, char **handle_temp);
+int		check_do_atoi(char **arg, int rep, int *input);
 void	one_arg_to_stack(const char *nptr, t_stack *stack, int *input,
 			int size);
 int		check_sort(int *stack, int size, int order);
 int		src_super(int *stack, int size, int superlative);
 int		check_dups(int *stack, int len);
-int		ft_num_count(char const *s);
+int		ft_num_count(char *args[]);
 
 // Operations
 int		do_pass_a(t_stack stack, t_sizes *size, char print);

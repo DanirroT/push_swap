@@ -6,7 +6,7 @@
 /*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 14:57:16 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/09 17:33:18 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/01/24 19:10:41 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	ft_out(t_stack *stack, int *input, char **handle_temp, int code)
 		trash_2d_char(handle_temp);
 	if (code)
 	{
-		printf("error %i", code);
 		ft_putstr_fd("Error\n", 2);
 		exit(code);
 	}
@@ -42,27 +41,27 @@ void	*assign_funct(void)
 {
 	int	(**algorithms)(t_stack, t_sizes, int);
 
-	algorithms = malloc(sizeof(int (*)(t_stack, t_sizes, int)) * 8);
+	algorithms = malloc(sizeof(int (*)(t_stack, t_sizes, int)) * 9);
 	algorithms[0] = simple_s_solve;
 	algorithms[1] = simple_rotate_solve;
-	algorithms[2] = push_to_side;
-	algorithms[3] = push_to_side_empty;
-	algorithms[4] = rotate_to_side;
-	algorithms[5] = radix_sort;
-	algorithms[6] = chunking_sort;
-	algorithms[7] = NULL;
+	algorithms[2] = solve_for_three;
+	algorithms[3] = push_to_side;
+	algorithms[4] = push_to_side_empty;
+	algorithms[5] = rotate_to_side;
+	algorithms[6] = radix_sort;
+	algorithms[7] = chunking_sort;
+	algorithms[8] = NULL;
 	return (algorithms);
 }
 
-void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
+void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input,
+		int (**algorithms)(t_stack, t_sizes, int))
 {
 	int	best_act;
 	int	actions;
 	int	i;
 	int	alg_index;
-	int	(**algorithms)(t_stack, t_sizes, int);
 
-	algorithms = assign_funct();
 	best_act = 0;
 	i = 0;
 	while (algorithms[i])
@@ -90,35 +89,26 @@ void	do_sorting(t_stack	stack, t_sizes stack_sizes, int *input)
 
 //#ifdef NO_MAIN
 
-int	*handle_args(int argc, char *argv[], t_stack *stack, int size)
+int	*handle_args(char *args[], int size)
 {
-	int		i;
-	int		*input;
-	char	**temp;
+	t_mult_ind	ind;
+	int			*input;
+	char		**temp;
 
-	input = ft_calloc(size, sizeof(int));
-	if (!input || argv[1][0] == '\0')
+	input = malloc(size * sizeof(int));
+	if (!input || args[1][0] == '\0')
 		return (free(input), NULL);
-	i = 0;
-	if (argc == 2)
+	ind.i = 0;
+	ind.k = 0;
+	while (args[++ind.i])
 	{
-		temp = ft_split_space(argv[1]);
+		ind.j = -1;
+		temp = ft_split_space(args[ind.i]);
 		if (!temp)
-			return (NULL);
-		while (i < size)
-		{
-			input[i] = check_do_atoi(temp[i], input, temp);
-			i++;
-		}
+			return (free(input), NULL);
+		while (temp[++ind.j])
+			input[ind.k++] = check_do_atoi(temp, ind.j, input);
 		trash_2d_char(temp);
-	}
-	else
-	{
-		while (i < size)
-		{
-			input[i] = check_do_atoi(argv[i + 1], input, NULL);
-			i++;
-		}
 	}
 	return (input);
 }
@@ -130,27 +120,28 @@ int	main(int argc, char *argv[])
 	int			*input;
 	int			*output;
 
-	if (argc <= 1)
+	if (argc < 1)
+		return (ft_out(NULL, NULL, NULL, -2));
+	else if (argc == 1)
 		return (ft_out(NULL, NULL, NULL, 0));
-	else if (argc == 2)
-		stack_sizes.a = ft_num_count(argv[1]);
-	else
-		stack_sizes.a = argc - 1;
+	stack_sizes.a = ft_num_count(&argv[1]);
 	fprintf(stderr, "Stack size A: %d\n", stack_sizes.a);
-	stack.a = ft_calloc(sizeof(int), stack_sizes.a);
-	stack.b = ft_calloc(sizeof(int), stack_sizes.a);
-	input = handle_args(argc, argv, &stack, stack_sizes.a);
+	if (stack_sizes.a <= 1)
+		return (ft_out(NULL, NULL, NULL, stack_sizes.a - 1));
+	input = handle_args(argv, stack_sizes.a);
+	stack.a = malloc(sizeof(int) * stack_sizes.a);
+	stack.b = malloc(sizeof(int) * stack_sizes.a);
 	if (!stack.b || !stack.a || !input || check_dups(input, stack_sizes.a))
-		ft_out(&stack, input, NULL, -1);
-	if (stack_sizes.a == 1 || check_sort(input, stack_sizes.a, 1))
+		return (ft_out(&stack, input, NULL, -1));
+	if (stack_sizes.a <= 1 || check_sort(input, stack_sizes.a, 1))
 		return (ft_out(&stack, input, NULL, 0));
 	print_stack(input, stack_sizes.a);
 	output = get_sort_order(input, stack_sizes.a);
 	print_stack(output, stack_sizes.a);
 	free(output);
 	stack_sizes.b = 0;
-	do_sorting(stack, stack_sizes, input);
-	ft_out(&stack, input, NULL, 0);
+	do_sorting(stack, stack_sizes, input, assign_funct());
+	return (ft_out(&stack, input, NULL, 0));
 }
 
 //#else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_simple_solve.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 12:59:20 by dmota-ri          #+#    #+#             */
-/*   Updated: 2025/12/10 13:58:22 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/01/20 15:43:14 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ int	simple_s_solve(t_stack stack, t_sizes sizes, int print)
 	do_swap(stack.a, sizes.a, print * 'a');
 	if (check_sort(stack.a, sizes.a, 1))
 		return (1);
+	return (-1);
+}
+
+int	solve_for_three(t_stack stack, t_sizes sizes, int print)
+{
+	do_swap(stack.a, sizes.a, print * 'a');
+	do_r_to_super(stack.a, sizes.a, -1, print * 'a');
+	if (check_sort(stack.a, sizes.a, 1))
+		return (2);
 	return (-1);
 }
 

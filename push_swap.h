@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmota-ri <dmota-ri@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dmota-ri <dmota-ri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 13:23:32 by dmota-ri          #+#    #+#             */
-/*   Updated: 2026/01/09 16:14:15 by dmota-ri         ###   ########.fr       */
+/*   Updated: 2026/01/24 18:40:53 by dmota-ri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,13 @@ void	*assign_funct(void);
 int		main(int argc, char *argv[]);
 
 // utils
-int		check_do_atoi(const char *nptr, int *input, char **handle_temp);
+int	check_do_atoi(char **arg, int rep, int *input);
 void	one_arg_to_stack(const char *nptr, t_stack *stack, int *input,
 			int size);
 int		check_sort(int *stack, int size, int order);
 int		src_super(int *stack, int size, int superlative);
 int		check_dups(int *stack, int len);
-int		ft_num_count(char const *s);
-
-void	print_int_mtx(char *msg, int *mtx, int len);
+int		ft_num_count(char *args[]);
 
 // Operations
 int		do_pass_a(t_stack stack, t_sizes *size, char print);
@@ -69,6 +67,7 @@ int		do_revrotate_r(t_stack stack, t_sizes stack_sizes, char print);
 
 // Simple Solves
 int		simple_s_solve(t_stack stack, t_sizes sizes, int print);
+int		solve_for_three(t_stack stack, t_sizes sizes, int print);
 int		do_r_to_super(int *stack, int size, int super, char print);
 int		simple_rotate_solve(t_stack stack, t_sizes sizes, int print);
 
@@ -89,12 +88,11 @@ int		do_empty_b(t_stack stack, t_sizes *sizes, char print);
 int		rotate_to_side(t_stack stack, t_sizes stack_sizes, int print);
 
 // radix Sort (500) 
+int		*get_sort_order(int *to_sort, int len);
 int		get_max_bits(int total_size);
-int		*get_ranks(int *stack, int size);
 int		radix_sort(t_stack stack, t_sizes sizes, int print);
 
 // Chunking Sort (100)
-int		*get_sort_order(int *to_sort, int len);
 int		get_rank(int value, int *order, int size);
 int		do_chunking_a(t_stack stack, t_sizes *sizes, int *order, int print);
 int		undo_chunking_b(t_stack stack, t_sizes *sizes, char print);
